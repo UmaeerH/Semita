@@ -30,3 +30,19 @@
 *.exe
 *.out
 *.app
+
+# Debug files
+*.pdb
+*.ilk
+*.obj
+*.exe
+*.dll
+*.lib
+*.so
+*.out
+*.a
+*.o
+*.dSYM/
+
+# Other files
+*.vscode
