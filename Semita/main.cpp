@@ -6,6 +6,8 @@
 
 // Program imports
 #include "command.h"
+#include "command_handler.h"
+#include "player.h"
 
 using namespace std;
 
@@ -16,6 +18,10 @@ int main()
     string word2;
     Command command = Command::UNKNOWN;
    
+    // PLACEHOLDER PLAYER LOCATION
+    Player player;
+    cout << "Player is at: " << player.getLocation() << endl;
+
     while(command != Command::QUIT)
     {
         cout << "> ";
@@ -44,6 +50,16 @@ int main()
             cout << "Unknown command: " << word1 << endl;
             command = Command::UNKNOWN;
             continue;
+        }
+
+        // Help Command
+        if (command == Command::HELP) {
+            cout << "Help command called" << endl; // Placeholder for help command
+        }
+
+        // Go Command
+        else if (command == Command::GO) {
+            handleGo(player, word2);
         }
 
         cout << "You would like to " << word1;

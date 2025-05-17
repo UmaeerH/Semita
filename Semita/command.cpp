@@ -1,47 +1,46 @@
 #include "command.h"
-#include <unordered_map>
+#include <algorithm>
 #include <stdexcept>
+#include <unordered_map>
 
 Command parseCommand(const std::string& input) {
     static const std::unordered_map<std::string, Command> commandMap = {
-        {"HELP", Command::HELP},
-        {"VERBS", Command::VERBS},
-        {"SAVE", Command::SAVE},
-        {"LOAD", Command::LOAD},
-        {"QUIT", Command::QUIT},
-        {"GO", Command::GO},
-        {"INSERT", Command::INSERT},
-        {"LOOK", Command::LOOK},
-        {"MOVE", Command::MOVE},
-        {"READ", Command::READ},
-        {"TALK", Command::TALK},
-        {"LEAVE", Command::LEAVE},
-        {"TAKE", Command::TAKE},
-        {"HIT", Command::HIT},
-        {"USE", Command::USE},
-        {"BUY", Command::BUY},
-        {"SELL", Command::SELL},
-        {"EQUIP", Command::EQUIP},
-        {"UNEQUIP", Command::UNEQUIP},
-        {"DISCARD", Command::DISCARD},
-        {"INVENTORY", Command::INVENTORY},
-        {"EQUIPPED", Command::EQUIPPED},
-        {"ATTACK", Command::ATTACK},
-        {"SKILL", Command::SKILL},
-        {"DEFEND", Command::DEFEND},
-        {"FLEE", Command::FLEE},
-        {"STATUS", Command::STATUS}
+        {"quit", Command::QUIT},
+        {"exit", Command::QUIT},
+        {"help", Command::HELP},
+        {"verbs", Command::VERBS},
+        {"save", Command::SAVE},
+        {"load", Command::LOAD},
+        {"go", Command::GO},
+        {"insert", Command::INSERT},
+        {"look", Command::LOOK},
+        {"move", Command::MOVE},
+        {"read", Command::READ},
+        {"talk", Command::TALK},
+        {"leave", Command::LEAVE},
+        {"take", Command::TAKE},
+        {"hit", Command::HIT},
+        {"use", Command::USE},
+        {"buy", Command::BUY},
+        {"sell", Command::SELL},
+        {"equip", Command::EQUIP},
+        {"unequip", Command::UNEQUIP},
+        {"discard", Command::DISCARD},
+        {"inventory", Command::INVENTORY},
+        {"equipped", Command::EQUIPPED},
+        {"attack", Command::ATTACK},
+        {"skill", Command::SKILL},
+        {"defend", Command::DEFEND},
+        {"flee", Command::FLEE},
+        {"status", Command::STATUS}
     };
 
-    std::string upperInput = input;
-    for (char& c : upperInput) {
-        c = toupper(c);
-    }
+    std::string cmd = input;
+    std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
 
-    auto it = commandMap.find(upperInput);
+    auto it = commandMap.find(cmd);
     if (it != commandMap.end()) {
         return it->second;
-    } else {
-        throw std::invalid_argument("Invalid command");
     }
+    throw std::invalid_argument("Unknown command");
 }

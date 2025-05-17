@@ -1,0 +1,11 @@
+#include "player.h"
+
+Player::Player() : location("start") {}
+
+std::string Player::getLocation() const {
+    return location;
+}
+
+void Player::setLocation(const std::string& newLocation) {
+    location = newLocation;
+}
