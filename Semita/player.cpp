@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player() : location("start") {}
+Player::Player() : location("Town") {}
 
 std::string Player::getLocation() const {
     return location;

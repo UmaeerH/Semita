@@ -47,14 +47,14 @@ int main()
         try {
             command = parseCommand(word1); // This will actually turn the user input into a command type
         } catch (const std::invalid_argument&) {
-            cout << "Unknown command: " << word1 << endl;
+            cout << "I do not recognise the command: \'" << word1 << "\', run the \'verbs\' command if you are unsure of the commands I can do." << endl;
             command = Command::UNKNOWN;
             continue;
         }
 
         // Help Command
         if (command == Command::HELP) {
-            cout << "Help command called" << endl; // Placeholder for help command
+            handleHelp();
         }
 
         // Go Command
@@ -62,12 +62,14 @@ int main()
             handleGo(player, word2);
         }
 
+        /*
         cout << "You would like to " << word1;
         if (!word2.empty()) {
             cout << " the " << word2;
         }
         cout << "?" << endl; // test statement
-
+        */
+       
     }
     return 0;
 }
