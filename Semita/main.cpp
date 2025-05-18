@@ -5,6 +5,8 @@
 #include <cctype>
 #include <algorithm>
 
+#include "../Semita/termcolor/termcolor.hpp"
+
 // Program imports
 #include "command.h"
 #include "command_handler.h"

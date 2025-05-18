@@ -1,6 +1,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include "../Semita/termcolor/termcolor.hpp"
+
 #include "command_handler.h"
 #include "command.h"
 #include "player.h"
@@ -22,6 +24,7 @@ std::string capitaliseNoun(std::string& input) {
     return result;
 }
 
+
 // META COMMANDS
 // Help Command
 void handleHelp(const std::string& arg) {
@@ -39,7 +42,7 @@ void handleHelp(const std::string& arg) {
     }
     std::string desc = getCommandDescription(cmd);
     if (cmd != Command::UNKNOWN && desc != "No description available for this command.") {
-        cout << "Help: " << desc << endl;
+        cout << termcolor::cyan << "Help: " << desc << termcolor::reset << endl;
     } else { // If command is not recognised
         cout << "I cannot help with " << arg << endl;
     }
