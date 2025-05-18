@@ -36,3 +36,4 @@ enum class Command {
 };
 
 Command parseCommand(const std::string& input);
+std::string getCommandDescription(Command command);

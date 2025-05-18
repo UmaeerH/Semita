@@ -23,7 +23,7 @@ static const std::unordered_map<std::string, std::vector<std::string>> adjacency
     {"Desert village", {"Oasis", "Desert"}}
 };
 
-    // Descriptions for each location
+// Descriptions for each location
 static const std::unordered_map<std::string, std::string> locationDescriptions = {
     {"Town", "A small, friendly town, located in a vast green landscape."},
     {"Woodlands", "A forest filled with tall trees."},

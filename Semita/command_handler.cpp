@@ -1,8 +1,13 @@
-#include "command_handler.h"
 #include <iostream>
+#include <algorithm>
+
+#include "command_handler.h"
+#include "command.h"
 #include "player.h"
 #include "map.h"
 
+// Forward declaration for getCommandDescription
+std::string getCommandDescription(const std::string& command);
 
 using namespace std;
 
@@ -20,18 +25,22 @@ std::string capitaliseNoun(std::string& input) {
 // META COMMANDS
 // Help Command
 void handleHelp(const std::string& arg) {
-    // This is when no command is given following the "help"
-    if (arg.empty()) {
-        cout << "Help: Welcome to Semita! This is an Text-Adventure Game." << endl;
+    if (arg.empty()) { // If argument is empty show this
+        cout << "Help: Welcome to Semita! This is a Text-Adventure Game." << endl;
         cout << "To get a list of commands, type 'verbs'." << endl;
         return;
-    }   // HACK: This is a temporary way of handling it. Will add a command "desc" later to read
-        // NOTE: 2nd word is capitlised like a noun
-    else if (arg == "Verbs" || arg == "Commands" || arg == "V" || arg == "Cmds") {
-        cout << "Help: This command lists all the commands you can use!" << endl; 
-        return;
     }
-    else {
+    // If argument is not empty, show the help for that command
+    Command cmd = Command::UNKNOWN;
+    try {
+        cmd = parseCommand(arg);
+    } catch (...) {
+        // ignore, will be UNKNOWN
+    }
+    std::string desc = getCommandDescription(cmd);
+    if (cmd != Command::UNKNOWN && desc != "No description available for this command.") {
+        cout << "Help: " << desc << endl;
+    } else { // If command is not recognised
         cout << "I cannot help with " << arg << endl;
     }
 }
