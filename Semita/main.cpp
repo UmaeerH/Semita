@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <cctype>
+#include <algorithm>
 
 // Program imports
 #include "command.h"
@@ -55,10 +56,14 @@ int main()
             word1 = input;
         }
 
+        // Make inputs lowercase so that they are not case sensitive
+        std::transform(word1.begin(), word1.end(), word1.begin(), ::tolower);
+        word2 = capitaliseNoun(word2); // Capitalise the noun
+
         try {
             command = parseCommand(word1); // This will actually turn the user input into a command type
         } catch (const std::invalid_argument&) {
-            cout << "I do not recognise the command: \'" << word1 << "\', run the \'verbs\' command if you are unsure of the commands I can do." << endl;
+            cout << "I do not recognise the command: \'" << word1 << "\', run the \'verbs\' command if you are unsure of the commands you can do." << endl;
             command = Command::UNKNOWN;
             continue;
         }
@@ -73,13 +78,6 @@ int main()
             handleGo(player, word2);
         }
 
-        /*
-        cout << "You would like to " << word1;
-        if (!word2.empty()) {
-            cout << " the " << word2;
-        }
-        cout << "?" << endl; // test statement
-        */
        
     }
     return 0;
