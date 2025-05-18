@@ -23,6 +23,10 @@ static const std::unordered_map<std::string, std::vector<std::string>> adjacency
     {"Desert village", {"Oasis", "Desert"}}
 };
 
+bool locationExists(const std::string& location) {
+    return adjacencyList.find(location) != adjacencyList.end();
+}
+
 bool checkNeighbours(const std::string& from, const std::string& to) {
     auto it = adjacencyList.find(from);
     if (it == adjacencyList.end()) return false;

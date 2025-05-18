@@ -7,13 +7,19 @@
 using namespace std;
 
 void handleHelp() {
-    cout << "Help: Available commands are go, look, take, use, etc." << endl;
+    cout << "Help: Welcome to Semita! This is an Text-Adventure Game." << endl;
+    cout << "To get a list of commands, type 'verbs'." << endl;
 }
 
 void handleGo(Player& player, const std::string& arg) {
-    string currentLocation = player.getLocation();
+    if (!locationExists(arg)) {
+        cout << "This place does not exist." << endl;
+        return;
+    }
 
-    // Check if the new location is a valid neighbour
+    // Only run if the argument is a valid location
+    string currentLocation = player.getLocation();
+    // Check if the new location is a neighbour
     if (checkNeighbours(currentLocation, arg)) { // Accept moving the player
         cout << "Moving from " << currentLocation << " to " << arg << endl;
         player.setLocation(arg);

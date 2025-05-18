@@ -11,14 +11,25 @@
 
 using namespace std;
 
+/* 
+TODO: Make the help command more useful ✅
+TODO: Add a function to handle the "verbs" command 
+TODO: Make noun list and populate from the table
+TODO: Make commands not case sensitive
+TODO: Make a description for each stage - and it reads this description when you enter the stage
+TODO: Make player class more useful - HP, Mana, inventory, etc.
+
+TODO: Battle system
+TODO: NPCs to talk to
+
+*/
 int main()
 {
-    string input;
-    string word1;
-    string word2;
+    string input; // The entire input
+    string word1; // The verb/command
+    string word2; // The noun/item
     Command command = Command::UNKNOWN;
    
-    // PLACEHOLDER PLAYER LOCATION
     Player player;
     cout << "Player is at: " << player.getLocation() << endl;
 

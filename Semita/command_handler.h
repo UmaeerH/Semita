@@ -3,5 +3,5 @@
 
 class Player;
 
-void handleHelp(); // TODO: Implement help command
+void handleHelp(); 
 void handleGo(Player& player, const std::string& arg);
