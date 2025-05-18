@@ -13,11 +13,12 @@
 using namespace std;
 
 /* 
-TODO: Make the help command more useful - add a description for each command
+TODO: Make the help command more useful ✅ 
 TODO: Add a function to handle the "verbs" command ✅
 TODO: Make noun list and populate from the table 
 TODO: Make commands not case sensitive ✅
 TODO: Make a description for each stage - and it reads this description when you enter the stage
+TODO: Make a description for each command - and it reads this description when you enter the command
 TODO: Make player class more useful - HP, Mana, inventory, etc.
 
 TODO: Battle system
@@ -70,7 +71,7 @@ int main()
 
         // Help Command
         if (command == Command::HELP) {
-            handleHelp();
+            handleHelp(word2);
         }
 
         // Go Command

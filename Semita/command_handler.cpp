@@ -18,10 +18,18 @@ std::string capitaliseNoun(std::string& input) {
 }
 
 // HELP COMMAND
-void handleHelp() {
+void handleHelp(const std::string& arg) {
     // This is when no command is given following the "help"
-    cout << "Help: Welcome to Semita! This is an Text-Adventure Game." << endl;
-    cout << "To get a list of commands, type 'verbs'." << endl;
+    if (arg.empty()) {
+        cout << "Help: Welcome to Semita! This is an Text-Adventure Game." << endl;
+        cout << "To get a list of commands, type 'verbs'." << endl;
+        return;
+    }   // HACK: This is a temporary way of handling it. Will add a command "desc" later to read
+        // NOTE: 2nd word is capitlised like a noun
+    else if (arg == "Verbs" || arg == "Commands" || arg == "V" || arg == "Cmds") {
+        cout << "Help: This command lists all the commands you can use!" << endl; 
+        return;
+    }
 }
 
 // VERBS COMMAND
