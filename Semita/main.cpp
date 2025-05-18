@@ -17,12 +17,8 @@
 using namespace std;
 
 /* 
-TODO: Make the help command more useful ✅ 
-TODO: Add a function to handle the "verbs" command ✅
 TODO: Make noun list and populate from the table 
-TODO: Make commands not case sensitive ✅
-TODO: Make a description for each stage - and it reads this description when you enter the stage ✅
-TODO: Make a description for each command - and it reads this description when you enter the help command ✅
+TODO: Noun table: location, look dialogue, etc
 TODO: Make player class more useful - HP, Mana, inventory, etc.
 
 TODO: Battle system
@@ -42,10 +38,15 @@ int main()
         { Command::HELP,    [&](){ handleHelp(word2); } },
         { Command::GO,      [&](){ handleGo(player, word2); } },
         { Command::VERBS,   [&](){ handleVerbs(); } },
-        { Command::LOOK,    [&](){ handleLook(player, word2); } }
+        { Command::LOOK,    [&](){ handleLook(player, word2); } },
+        { Command::STATUS,  [&](){ handleStatus(player); } }
         // Add more commands and handlers as needed
     };
 
+    // Start up dialogue
+    cout << termcolor::red << "==========================" << endl;
+    cout << termcolor::green << "Welcome to Semita!" << endl;
+    cout << termcolor::red << "==========================" << termcolor::reset << endl;
     cout << "Player is at: " << player.getLocation() << endl;
 
     while(command != Command::QUIT)

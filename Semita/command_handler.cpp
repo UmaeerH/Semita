@@ -90,8 +90,15 @@ void handleLook(Player& player, const std::string& arg) {
     string currentLocation = player.getLocation();
     if (arg.empty()) { // No argument given, description of current location
         cout << "You are at: " << currentLocation << endl;
-        cout << "Description: " << getLocationDescription(currentLocation) << endl;
+        cout << "You look around your environment: " << getLocationDescription(currentLocation) << endl;
     } else {
         cout << "You look at: " << arg << endl; // Placeholder for looking at an object
     }
+}
+
+// Status Command
+void handleStatus(Player& player) {
+    cout << "Player Status: " << endl;
+    cout << "Location: " << player.getLocation() << endl;
+    cout << termcolor::red << "HP: " << player.getHP() << termcolor::reset << endl;
 }
