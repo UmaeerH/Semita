@@ -19,8 +19,24 @@ std::string capitaliseNoun(std::string& input) {
 
 // HELP COMMAND
 void handleHelp() {
+    // This is when no command is given following the "help"
     cout << "Help: Welcome to Semita! This is an Text-Adventure Game." << endl;
     cout << "To get a list of commands, type 'verbs'." << endl;
+}
+
+// VERBS COMMAND
+void handleVerbs() {
+    cout << "Here is a list of commands you can do: " << endl;
+    cout << "---- META COMMANDS ----" << endl;
+    cout << "Help, Verbs / Commands, Save, Load, Quit" << endl;
+    cout << "---- Interacting with the World ----" << endl;
+    cout << "Go, Insert, Look, Move, Read, Talk, Leave, Take, Hit" << endl;
+    cout << "--- Interacting with Items ----" << endl;
+    cout << "Use, Buy, Sell, Equip, Unequip, Discard, Inventory, Equipped" << endl;
+    cout << "---- Battle Commands ----" << endl;
+    cout << "Attack, Skill, Defend, Flee, Status" << endl;
+    cout << "======================================" << endl;
+    cout << "For more information on a command, type \'Help {Command}\'." << endl;
 }
 
 // GO COMMAND
