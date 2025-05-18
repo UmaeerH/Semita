@@ -17,7 +17,8 @@ std::string capitaliseNoun(std::string& input) {
     return result;
 }
 
-// HELP COMMAND
+// META COMMANDS
+// Help Command
 void handleHelp(const std::string& arg) {
     // This is when no command is given following the "help"
     if (arg.empty()) {
@@ -30,9 +31,12 @@ void handleHelp(const std::string& arg) {
         cout << "Help: This command lists all the commands you can use!" << endl; 
         return;
     }
+    else {
+        cout << "I cannot help with " << arg << endl;
+    }
 }
 
-// VERBS COMMAND
+// Verbs Command
 void handleVerbs() {
     cout << "Here is a list of commands you can do: " << endl;
     cout << "---- META COMMANDS ----" << endl;
@@ -47,7 +51,9 @@ void handleVerbs() {
     cout << "For more information on a command, type \'Help {Command}\'." << endl;
 }
 
-// GO COMMAND
+
+// IN-GAME COMMANDS
+// Go Command
 void handleGo(Player& player, const std::string& arg) {
     if (!locationExists(arg)) {
         cout << arg <<" is not a valid location." << endl;
@@ -61,7 +67,19 @@ void handleGo(Player& player, const std::string& arg) {
         cout << "Moving from " << currentLocation << " to " << arg << endl;
         player.setLocation(arg);
         cout << "You are now at: " << arg << endl;
-    } else { // Reject moving the player
+        cout << "Description: " << getLocationDescription(arg) << endl;
+    } else { // Reject moving the player - not connected
         cout << "You can't go to '" << arg << "' from '" << currentLocation << "'." << endl;
+    }
+}
+
+// Look Command
+void handleLook(Player& player, const std::string& arg) {
+    string currentLocation = player.getLocation();
+    if (arg.empty()) { // No argument given, description of current location
+        cout << "You are at: " << currentLocation << endl;
+        cout << "Description: " << getLocationDescription(currentLocation) << endl;
+    } else {
+        cout << "You look at: " << arg << endl; // Placeholder for looking at an object
     }
 }

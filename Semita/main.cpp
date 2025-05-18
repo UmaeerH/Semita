@@ -83,6 +83,11 @@ int main()
         else if (command == Command::VERBS) {
             handleVerbs();
         }
+
+        // Look Command
+        else if (command == Command::LOOK) {
+            handleLook(player, word2);
+        }
        
     }
     return 0;
