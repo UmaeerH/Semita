@@ -82,7 +82,20 @@ int main()
         auto it = handlers.find(command);
         if (it != handlers.end()) {
             it->second(); // Call the handler
-        } else if (command != Command::QUIT) {
+        }
+        else if (command == Command::QUIT) { // Quit confirmation, might move the command_handler 
+            cout << termcolor::red << "Are you sure you want to quit? (\"Y\" to confirm)" << termcolor::reset << endl;
+            cout << "> ";
+            std::string input;
+            getline(cin, input);
+            if (input == "Y" || input == "y") { // y or Y are accepted
+                break; // Exit the loop and quit game
+            } else {
+                cout << "Quit cancelled" << endl;
+                command = Command::UNKNOWN;
+                continue;
+            }
+        } else {
             cout << "Unknown or unhandled command." << endl;
         }
     }
