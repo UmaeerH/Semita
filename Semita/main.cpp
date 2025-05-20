@@ -32,7 +32,7 @@ int main()
     string word1; // The verb/command
     string word2; // The noun/item
     Command command = Command::UNKNOWN;
-    Player player;
+    Player player; // Define the player
 
     // Command handler dispatch table
     std::unordered_map<Command, std::function<void()>> handlers = {
@@ -46,6 +46,7 @@ int main()
 
     // Start up dialogue
     introPrint();
+    choosePlayerClass(player);  // cannot quit whilst choosing class - very minor issue
 
     while(command != Command::QUIT)
     {

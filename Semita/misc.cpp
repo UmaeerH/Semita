@@ -41,3 +41,41 @@ void introPrint()
     cout << "`8888Y' Y88888P YP  YP  YP Y888888P    YP    YP   YP YP                                  " << endl;
     cout << termcolor::red << "==============================================================================================" << termcolor::reset << endl;
 }
+
+
+int choosePlayerClass(Player& player) {
+    while (true) {
+        cout << termcolor::cyan << "Choose your class:\n"
+             << "1. Knight\n"
+             << "2. Mage\n"
+             << "3. Assassin\n"
+             << "4. Archer\n"
+             << "Type the number or the class name: " << termcolor::reset;
+        string classInput;
+        getline(cin, classInput);
+
+        // Convert input to lowercase
+        std::transform(classInput.begin(), classInput.end(), classInput.begin(), ::tolower);
+
+        if (classInput == "1" || classInput == "knight") {
+            player.setClass(PlayerClass::Knight);
+            cout << "You have chosen: Knight\n";
+            break;
+        } else if (classInput == "2" || classInput == "mage") {
+            player.setClass(PlayerClass::Mage);
+            cout << "You have chosen: Mage\n";
+            break;
+        } else if (classInput == "3" || classInput == "assassin") {
+            player.setClass(PlayerClass::Assassin);
+            cout << "You have chosen: Assassin\n";
+            break;
+        } else if (classInput == "4" || classInput == "archer") {
+            player.setClass(PlayerClass::Archer);
+            cout << "You have chosen: Archer\n";
+            break;
+        } else {
+            cout << termcolor::bright_red << "Invalid choice. Please try again.\n" << termcolor::reset;
+        }
+    }
+    return 0;
+}

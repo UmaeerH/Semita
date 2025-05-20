@@ -96,9 +96,22 @@ void handleLook(Player& player, const std::string& arg) {
     }
 }
 
+// Convert class to string, for printing
+std::string playerClassToString(PlayerClass pc) {
+    switch (pc) {
+        case PlayerClass::Unselected: return "Unselected";
+        case PlayerClass::Knight:     return "Knight";
+        case PlayerClass::Mage:       return "Mage";
+        case PlayerClass::Assassin:   return "Assassin";
+        case PlayerClass::Archer:     return "Archer";
+        default:                      return "Unknown";
+    }
+}
+
 // Status Command
 void handleStatus(Player& player) {
     cout << "Player Status: " << endl;
     cout << "Location: " << player.getLocation() << endl;
     cout << termcolor::red << "HP: " << player.getHP() << termcolor::reset << endl;
+    cout << termcolor::blue << "Class: " << playerClassToString(player.getClass()) << termcolor::reset << endl;
 }
