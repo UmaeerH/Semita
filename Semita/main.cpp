@@ -13,6 +13,7 @@
 #include "command.h"
 #include "command_handler.h"
 #include "player.h"
+#include "misc.h" // For misc functions
 
 using namespace std;
 
@@ -44,10 +45,7 @@ int main()
     };
 
     // Start up dialogue
-    cout << termcolor::red << "==========================" << endl;
-    cout << termcolor::green << "Welcome to Semita!" << endl;
-    cout << termcolor::red << "==========================" << termcolor::reset << endl;
-    cout << "Player is at: " << player.getLocation() << endl;
+    introPrint();
 
     while(command != Command::QUIT)
     {
