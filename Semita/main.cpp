@@ -47,9 +47,9 @@ int main()
         // In-game Commmands
         { Command::GO,      [&](){ handleGo(player, phrase); } },
         { Command::INSERT,  [&](){ handleInsert(player, word2, word3); } }, // Placeholder
-        { Command::LOOK,    [&](){ handleLook(player, phrase); } }, // Placeholder
+        { Command::LOOK,    [&](){ handleLook(player, phrase); } },
         { Command::MOVE,    [&](){ cout << "Move not implemented yet." << endl; } },
-        { Command::READ,    [&](){ cout << "Read not implemented yet." << endl; } },
+        { Command::READ,    [&](){ handleRead(player, phrase); } },
         { Command::TALK,    [&](){ cout << "Talk not implemented yet." << endl; } },
         { Command::LEAVE,   [&](){ cout << "Leave not implemented yet." << endl; } },
         { Command::TAKE,    [&](){ cout << "Take not implemented yet." << endl; } },

@@ -116,6 +116,18 @@ void handleLook(Player& player, const std::string& arg) {
     }
 }
 
+// Read Command
+void handleRead(Player& player, const std::string& arg) {
+    // Check if the object is in the read table
+    auto it = getItemReadTable().find(arg);
+    if (it != getItemReadTable().end()) {
+        cout << "You read the " << it->first << endl;
+        cout << termcolor::green << it->second << termcolor::reset << endl;
+    } else {
+        cout << "There's nothing to read on that" << endl;
+    }
+}
+
 // Convert class to string, for printing
 std::string playerClassToString(PlayerClass pc) {
     switch (pc) {

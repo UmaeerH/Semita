@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 struct GameObject {
     std::string objectName;
@@ -11,5 +12,6 @@ struct GameObject {
         : objectName(name), objectDescription(desc), value(val) {}
 };
 
-// Returns a const reference to the static object table
 const std::vector<GameObject>& getObjectTable();
+const std::unordered_map<std::string, std::string>& getObjectLocationTable();
+const std::unordered_map<std::string, std::string>& getItemReadTable();
