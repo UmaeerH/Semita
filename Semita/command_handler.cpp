@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <unordered_map>
 
 #include "../Semita/termcolor/termcolor.hpp"
 
@@ -8,6 +9,9 @@
 #include "player.h"
 #include "object.h"
 #include "map.h"
+
+// Forward declaration for getObjectLocationTable if not included in object.h
+const std::unordered_map<std::string, std::string>& getObjectLocationTable();
 
 // Forward declaration for getCommandDescription
 std::string getCommandDescription(const std::string& command);
@@ -74,14 +78,14 @@ void handleGo(Player& player, const std::string& arg) {
         cout << "You are now at: " << arg << endl;
         cout << "Description: " << getLocationDescription(arg) << endl;
     } else { // Reject moving the player - not connected
-        cout << "You can't go to '" << arg << "' from '" << currentLocation << "'." << endl;
+        cout << "You can't go to \'" << arg << "\' from \'" << currentLocation << "\'." << endl;
     }
 }
 
 // Insert Command
 void handleInsert(Player& player, const std::string& arg, const std::string& location) {
     cout << "You insert " << arg << " into " << location << endl;
-}
+} // Plceholder for now
 
 // Look Command
 void handleLook(Player& player, const std::string& arg) {
@@ -90,15 +94,22 @@ void handleLook(Player& player, const std::string& arg) {
         cout << "You are at: " << currentLocation << endl;
         cout << "You look around your environment: " << getLocationDescription(currentLocation) << endl;
     } else {
-         // Search for the object in the object table
+        // Search for the object in the object table
         const auto& objects = getObjectTable();
         auto it = std::find_if(objects.begin(), objects.end(),
             [&](const GameObject& obj) {
                 return obj.objectName == arg;
             });
         if (it != objects.end()) {
-            cout << "You look at: " << it->objectName << endl;
-            cout << "Description: " << it->objectDescription << endl;
+            const auto& locationTable = getObjectLocationTable();
+            auto locIt = locationTable.find(it->objectName);
+            if (locIt != locationTable.end() &&
+                (locIt->second == currentLocation || locIt->second == "Inventory")) {
+                cout << "You look at: " << it->objectName << endl;
+                cout << "Description: " << it->objectDescription << endl;
+            } else {
+                cout << "There is no " << termcolor::red << arg << termcolor::reset << " around." << endl;
+            }
         } else {
             cout << "There is no " << termcolor::red << arg << termcolor::reset << " around." << endl;
         }
