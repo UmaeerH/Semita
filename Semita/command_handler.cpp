@@ -110,8 +110,12 @@ std::string playerClassToString(PlayerClass pc) {
 
 // Status Command
 void handleStatus(Player& player) {
-    cout << "Player Status: " << endl;
+    cout << "======================================" << endl;
+    cout << "Player Status" << endl;
     cout << "Location: " << player.getLocation() << endl;
     cout << termcolor::red << "HP: " << player.getHP() << termcolor::reset << endl;
-    cout << termcolor::blue << "Class: " << playerClassToString(player.getClass()) << termcolor::reset << endl;
+    cout << termcolor::blue << "Mana: " << player.getMana() << termcolor::reset << endl;
+    cout << termcolor::cyan << "Class: " << playerClassToString(player.getClass()) << termcolor::reset << endl;
+    cout << termcolor::green << "STR: " << player.getStrength() << "\tDEF: " << player.getDefence() << "\tAGI: " << player.getAgility() << "\tSPD: " << player.getSpeed() << termcolor::reset << endl;
+    cout << "======================================" << endl;
 }

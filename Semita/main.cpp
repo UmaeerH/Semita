@@ -41,7 +41,7 @@ int main()
         { Command::VERBS,   [&](){ handleVerbs(); } },
         { Command::LOOK,    [&](){ handleLook(player, word2); } },
         { Command::STATUS,  [&](){ handleStatus(player); } }
-        // Add more commands and handlers as needed
+        
     };
 
     // Start up dialogue

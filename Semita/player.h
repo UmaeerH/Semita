@@ -15,15 +15,35 @@ enum class PlayerClass {
 class Player {
 public:
     Player();
-    // Get and set location
-    std::string getLocation() const;
-    void setLocation(const std::string& newLocation);
+    
+    // Get and set HP, Mana
     int getHP() const;
     void setHP(int newHP);
+    int getMana() const;
+    void setMana(int newMana);
+    // Combat Stats
+    int getStrength() const;
+    void setStrength(int newStr);
+    int getDefence() const;
+    void setDefence(int newDef);
+    int getAgility() const;
+    void setAgility(int newAgi);
+    int getSpeed() const;
+    void setSpeed(int newSpd);
+    
+    // Player class
     PlayerClass getClass() const;
     void setClass(PlayerClass newClass);
+    // Player location
+    std::string getLocation() const;
+    void setLocation(const std::string& newLocation);
 private:
-    std::string location;
     int HP;
+    int Mana;
+    int Strength;
+    int Defence;
+    int Agility;
+    int Speed;
     PlayerClass playerClass;
+    std::string location;
 };
