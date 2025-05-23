@@ -66,46 +66,21 @@ int main()
         { Command::SKILL,   [&](){ cout << "Skill not implemented yet." << endl; } },
         { Command::DEFEND,  [&](){ cout << "Defend not implemented yet." << endl; } },
         { Command::FLEE,    [&](){ cout << "Flee not implemented yet." << endl; } },
-        // Buy and sell commands will be implemented in the shop system
     };
 
     // Start up dialogue
     introPrint();
     choosePlayerClass(player);  // cannot quit whilst choosing class - very minor issue
 
-    while(command != Command::QUIT)
+    while(true)
     {
         cout << "> ";
         getline(cin, input);
         // Placeholder - prints raw input
         cout << termcolor::grey << termcolor::on_cyan <<"Raw command: " << input << termcolor::reset << endl;
 
-        word1.clear();
-        word2.clear();
-        word3.clear();
-        size_t pos = input.find(' ');
-        if (pos != string::npos) {
-            word1 = input.substr(0, pos);
-            size_t first_non_space = input.find_first_not_of(' ', pos + 1);
-            if (first_non_space != string::npos) {
-                size_t second_space = input.find(' ', first_non_space);
-                if (second_space != string::npos) {
-                    word2 = input.substr(first_non_space, second_space - first_non_space);
-                    size_t second_non_space = input.find_first_not_of(' ', second_space + 1);
-                    if (second_non_space != string::npos) {
-                        word3 = input.substr(second_non_space);
-                    }
-                } else {
-                    word2 = input.substr(first_non_space);
-                }
-            }
-        } else {
-            word1 = input;
-        }
-
-        std::transform(word1.begin(), word1.end(), word1.begin(), ::tolower);
-        word2 = capitaliseNoun(word2); // Capitalise the noun
-        word3 = capitaliseNoun(word3); // Not used yet
+        // Interpret the input
+        interpretInput(input, word1, word2, word3);
 
         try {
             command = parseCommand(word1); // This will actually turn the user input into a command type

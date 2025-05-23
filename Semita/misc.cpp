@@ -25,6 +25,46 @@ void introPrint()
     cout << termcolor::red << "==============================================================================================" << termcolor::reset << endl;
 }
 
+std::string capitaliseNoun(std::string& input) {
+    if (input.empty()) return input;
+    std::string result = input;
+    result[0] = toupper(result[0]);
+    for (size_t i = 1; i < result.size(); ++i) {
+        result[i] = tolower(result[i]);
+    }
+    return result;
+}
+
+void interpretInput(std::string& input, std::string& word1, std::string& word2, std::string& word3) {
+    word1.clear();
+    word2.clear();
+    word3.clear();
+    size_t pos = input.find(' ');
+    if (pos != string::npos) {
+        word1 = input.substr(0, pos);
+        size_t first_non_space = input.find_first_not_of(' ', pos + 1);
+        if (first_non_space != string::npos) {
+            size_t second_space = input.find(' ', first_non_space);
+            if (second_space != string::npos) {
+                word2 = input.substr(first_non_space, second_space - first_non_space);
+                size_t second_non_space = input.find_first_not_of(' ', second_space + 1);
+                if (second_non_space != string::npos) {
+                    word3 = input.substr(second_non_space);
+                }
+            } else {
+                word2 = input.substr(first_non_space);
+            }
+        }
+    } else {
+        word1 = input;
+    }
+
+        std::transform(word1.begin(), word1.end(), word1.begin(), ::tolower);
+        word2 = capitaliseNoun(word2); // Capitalise the noun
+        word3 = capitaliseNoun(word3);
+}
+
+
 
 int choosePlayerClass(Player& player) {
     while (true) {
