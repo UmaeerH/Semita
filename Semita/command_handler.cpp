@@ -51,13 +51,13 @@ void handleHelp(const std::string& arg) {
 // Verbs Command
 void handleVerbs() {
     cout << "Here is a list of commands you can do: " << endl;
-    cout << "---- META COMMANDS ----" << endl;
-    cout << "Help, Verbs / Commands, Save, Load, Quit" << endl;
-    cout << "---- Interacting with the World ----" << endl;
-    cout << "Go, Insert, Look, Move, Read, Talk, Leave, Take, Hit" << endl;
-    cout << "--- Interacting with Items ----" << endl;
-    cout << "Use, Buy, Sell, Equip, Unequip, Discard, Inventory, Equipped" << endl;
-    cout << "---- Battle Commands ----" << endl;
+    cout << termcolor::cyan << "---- META COMMANDS ----" << termcolor::reset << endl;
+    cout << "Help, Verbs, Save, Load, Quit" << endl;
+    cout << termcolor::cyan << "---- Interacting with the World ----" << termcolor::reset << endl;
+    cout << "Go, Insert, Look, Move, Read\nTalk, Leave, Take, Hit" << endl;
+    cout << termcolor::cyan << "--- Interacting with Items ----" << termcolor::reset << endl;
+    cout << "Use, Buy, Sell, Equip, Unequip\nDiscard, Inventory, Equipped" << endl;
+    cout << termcolor::cyan << "---- Battle Commands ----" << termcolor::reset << endl;
     cout << "Attack, Skill, Defend, Flee, Status" << endl;
     cout << "======================================" << endl;
     cout << "For more information on a command, type \'Help {Command}\'." << endl;
@@ -83,6 +83,11 @@ void handleGo(Player& player, const std::string& arg) {
     } else { // Reject moving the player - not connected
         cout << "You can't go to '" << arg << "' from '" << currentLocation << "'." << endl;
     }
+}
+
+// Insert Command
+void handleInsert(Player& player, const std::string& arg, const std::string& location) {
+    cout << "You insert " << arg << " into " << location << endl;
 }
 
 // Look Command

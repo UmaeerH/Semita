@@ -31,17 +31,42 @@ int main()
     string input; // The entire input
     string word1; // The verb/command
     string word2; // The noun/item
+    string word3; // The second noun/item
     Command command = Command::UNKNOWN;
     Player player; // Define the player
 
     // Command handler dispatch table
     std::unordered_map<Command, std::function<void()>> handlers = {
+        // Meta Commands
         { Command::HELP,    [&](){ handleHelp(word2); } },
-        { Command::GO,      [&](){ handleGo(player, word2); } },
         { Command::VERBS,   [&](){ handleVerbs(); } },
+        { Command::SAVE,    [&](){ cout << "Save not implemented yet." << endl; } },
+        { Command::LOAD,    [&](){ cout << "Load not implemented yet." << endl; } },
+        // In-game Commmands
+        { Command::GO,      [&](){ handleGo(player, word2); } },
+        { Command::INSERT,  [&](){ handleInsert(player, word2, word3); } },
         { Command::LOOK,    [&](){ handleLook(player, word2); } },
-        { Command::STATUS,  [&](){ handleStatus(player); } }
-        
+        { Command::MOVE,    [&](){ cout << "Move not implemented yet." << endl; } },
+        { Command::READ,    [&](){ cout << "Read not implemented yet." << endl; } },
+        { Command::TALK,    [&](){ cout << "Talk not implemented yet." << endl; } },
+        { Command::LEAVE,   [&](){ cout << "Leave not implemented yet." << endl; } },
+        { Command::TAKE,    [&](){ cout << "Take not implemented yet." << endl; } },
+        { Command::HIT,     [&](){ cout << "Hit not implemented yet." << endl; } },
+        { Command::USE,     [&](){ cout << "Use not implemented yet." << endl; } },
+        { Command::EQUIP,   [&](){ cout << "Equip not implemented yet." << endl; } },
+        { Command::UNEQUIP, [&](){ cout << "Unequip not implemented yet." << endl; } },
+        { Command::DISCARD, [&](){ cout << "Discard not implemented yet." << endl; } },
+        { Command::INVENTORY,[&](){ cout << "Inventory not implemented yet." << endl; } },
+        { Command::EQUIPPED,[&](){ cout << "Equipped not implemented yet." << endl; } },
+        { Command::STATUS,  [&](){ handleStatus(player); } },
+        { Command::BUY,     [&](){ cout << "Buy not implemented yet." << endl; } },
+        { Command::SELL,    [&](){ cout << "Sell not implemented yet." << endl; } },
+        // Battle Commands
+        { Command::ATTACK,  [&](){ cout << "Attack not implemented yet." << endl; } },
+        { Command::SKILL,   [&](){ cout << "Skill not implemented yet." << endl; } },
+        { Command::DEFEND,  [&](){ cout << "Defend not implemented yet." << endl; } },
+        { Command::FLEE,    [&](){ cout << "Flee not implemented yet." << endl; } },
+        // Buy and sell commands will be implemented in the shop system
     };
 
     // Start up dialogue
@@ -57,12 +82,22 @@ int main()
 
         word1.clear();
         word2.clear();
+        word3.clear();
         size_t pos = input.find(' ');
         if (pos != string::npos) {
             word1 = input.substr(0, pos);
             size_t first_non_space = input.find_first_not_of(' ', pos + 1);
             if (first_non_space != string::npos) {
-                word2 = input.substr(first_non_space);
+                size_t second_space = input.find(' ', first_non_space);
+                if (second_space != string::npos) {
+                    word2 = input.substr(first_non_space, second_space - first_non_space);
+                    size_t second_non_space = input.find_first_not_of(' ', second_space + 1);
+                    if (second_non_space != string::npos) {
+                        word3 = input.substr(second_non_space);
+                    }
+                } else {
+                    word2 = input.substr(first_non_space);
+                }
             }
         } else {
             word1 = input;
@@ -70,6 +105,7 @@ int main()
 
         std::transform(word1.begin(), word1.end(), word1.begin(), ::tolower);
         word2 = capitaliseNoun(word2); // Capitalise the noun
+        word3 = capitaliseNoun(word3); // Not used yet
 
         try {
             command = parseCommand(word1); // This will actually turn the user input into a command type

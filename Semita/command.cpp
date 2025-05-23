@@ -64,7 +64,7 @@ Command parseCommand(const std::string& input) {
 static const std::unordered_map<Command, std::string> commandDescriptions = {
     {Command::QUIT, "Exit the game."},
     {Command::HELP, "Show help information. Usage: help <command>"},
-    {Command::VERBS, "List all available commands. \nAlias: verbs, commands, cmds, v"},
+    {Command::VERBS, "List all available commands. \nAlias: commands, cmds, v"},
     {Command::SAVE, "Save your current progress."},
     {Command::LOAD, "Load a saved game."},
     {Command::GO, "Move to another location. Usage: go <location> \nAlias: travel"},
