@@ -35,10 +35,11 @@ std::string capitaliseNoun(std::string& input) {
     return result;
 }
 
-void interpretInput(std::string& input, std::string& word1, std::string& word2, std::string& word3) {
+void interpretInput(std::string& input, std::string& word1, std::string& word2, std::string& word3, std::string& phrase) {
     word1.clear();
     word2.clear();
     word3.clear();
+    phrase.clear();
     size_t pos = input.find(' ');
     if (pos != string::npos) {
         word1 = input.substr(0, pos);
@@ -59,9 +60,21 @@ void interpretInput(std::string& input, std::string& word1, std::string& word2, 
         word1 = input;
     }
 
-        std::transform(word1.begin(), word1.end(), word1.begin(), ::tolower);
-        word2 = capitaliseNoun(word2); // Capitalise the noun
-        word3 = capitaliseNoun(word3);
+    std::transform(word1.begin(), word1.end(), word1.begin(), ::tolower);
+    word2 = capitaliseNoun(word2); // Capitalise the noun
+    word3 = capitaliseNoun(word3);
+
+    // Phrase will be used for single-noun commands such as go, equip, etc
+    // This allows use to use names with spaces in them, such as "Mountain Shrine" and "Leather Helmet"
+    if (!word2.empty() && !word3.empty()) {
+        phrase = word2 + " " + word3;
+    } else if (!word2.empty()) {
+        phrase = word2;
+    } else if (!word3.empty()) {
+        phrase = word3;
+    } else {
+        phrase.clear();
+    }
 }
 
 

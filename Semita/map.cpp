@@ -5,22 +5,22 @@
 
 // Map layout
 static const std::unordered_map<std::string, std::vector<std::string>> adjacencyList = {
-    {"Town", {"Woodlands", "Fields", "Pilgrim's path"}},
+    {"Town", {"Woodlands", "Fields", "Pilgrim's Path"}},
     {"Woodlands", {"Town", "Deep Woodlands"}},
-    {"Fields", {"Town", "Shore", "Mountain path"}},
-    {"Shore", {"Fields", "Fishing village"}},
-    {"Fishing village", {"Shore"}},
-    {"Mountain path", {"Fields", "Mountain shrine"}},
-    {"Mountain shrine", {"Mountain path", "Mountain peak"}},
-    {"Mountain peak", {"Mountain shrine"}},
+    {"Fields", {"Town", "Shore", "Mountain Path"}},
+    {"Shore", {"Fields", "Fishing Village"}},
+    {"Fishing Village", {"Shore"}},
+    {"Mountain Path", {"Fields", "Mountain Shrine"}},
+    {"Mountain Shrine", {"Mountain Path", "Mountain Peak"}},
+    {"Mountain Peak", {"Mountain Shrine"}},
     {"Deep Woodlands", {"Cave Entrance", "Woodlands"}},
     {"Cave Entrance", {"Deep Cave", "Deep Woodlands"}},
     {"Deep Cave", {"Cave Entrance"}},
-    {"Pilgrim's path", {"Town", "Desert"}},
-    {"Desert", {"Desert Temple", "Pilgrim's path", "Oasis", "Desert village"}},
+    {"Pilgrim's Path", {"Town", "Desert"}},
+    {"Desert", {"Desert Temple", "Pilgrim's Path", "Oasis", "Desert Village"}},
     {"Desert Temple", {"Desert"}},
-    {"Oasis", {"Desert", "Desert village"}},
-    {"Desert village", {"Oasis", "Desert"}}
+    {"Oasis", {"Desert", "Desert Village"}},
+    {"Desert Village", {"Oasis", "Desert"}}
 };
 
 // Descriptions for each location
@@ -29,18 +29,18 @@ static const std::unordered_map<std::string, std::string> locationDescriptions =
     {"Woodlands", "A forest filled with tall trees."},
     {"Fields", "Open fields with tall grass swaying in the wind."},
     {"Shore", "A sandy shore with waves gently lapping the land."},
-    {"Fishing village", "A small village, it seems pretty abandoned."},
-    {"Mountain path", "A rocky path winding up the mountain."},
-    {"Mountain shrine", "An ancient shrine."},
-    {"Mountain peak", "The highest point."},
+    {"Fishing Village", "A small village, it seems pretty abandoned."},
+    {"Mountain Path", "A rocky path winding up the mountain."},
+    {"Mountain Shrine", "An ancient shrine."},
+    {"Mountain Peak", "The highest point."},
     {"Deep Woodlands", "Dark tall trees, dense vegetation and silence."},
     {"Cave Entrance", "A shadowy cave entrance."},
     {"Deep Cave", "Pitch darkness."},
-    {"Pilgrim's path", "A well-trodden path used by travelers and pilgrims."},
+    {"Pilgrim's Path", "A well-trodden path used by travelers and pilgrims."},
     {"Desert", "A vast, arid desert with rolling dunes."},
     {"Desert Temple", "A mysterious temple buried in the sands."},
     {"Oasis", "A lush oasis with palm trees and fresh water."},
-    {"Desert village", "A small village located within the desert."}
+    {"Desert Village", "A small village located within the desert."}
 };
 
 bool locationExists(const std::string& location) {

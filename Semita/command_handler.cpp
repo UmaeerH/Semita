@@ -6,6 +6,7 @@
 #include "command_handler.h"
 #include "command.h"
 #include "player.h"
+#include "object.h"
 #include "map.h"
 
 // Forward declaration for getCommandDescription
@@ -89,7 +90,18 @@ void handleLook(Player& player, const std::string& arg) {
         cout << "You are at: " << currentLocation << endl;
         cout << "You look around your environment: " << getLocationDescription(currentLocation) << endl;
     } else {
-        cout << "You look at: " << arg << endl; // Placeholder for looking at an object
+         // Search for the object in the object table
+        const auto& objects = getObjectTable();
+        auto it = std::find_if(objects.begin(), objects.end(),
+            [&](const GameObject& obj) {
+                return obj.objectName == arg;
+            });
+        if (it != objects.end()) {
+            cout << "You look at: " << it->objectName << endl;
+            cout << "Description: " << it->objectDescription << endl;
+        } else {
+            cout << "There is no " << termcolor::red << arg << termcolor::reset << " around." << endl;
+        }
     }
 }
 

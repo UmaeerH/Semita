@@ -13,6 +13,7 @@
 #include "command.h"
 #include "command_handler.h"
 #include "player.h"
+#include "object.h"
 #include "misc.h" // For misc functions
 
 using namespace std;
@@ -32,6 +33,7 @@ int main()
     string word1; // The verb/command
     string word2; // The noun/item
     string word3; // The second noun/item
+    string phrase; // word2 + word3
     Command command = Command::UNKNOWN;
     Player player; // Define the player
 
@@ -43,9 +45,9 @@ int main()
         { Command::SAVE,    [&](){ cout << "Save not implemented yet." << endl; } },
         { Command::LOAD,    [&](){ cout << "Load not implemented yet." << endl; } },
         // In-game Commmands
-        { Command::GO,      [&](){ handleGo(player, word2); } },
-        { Command::INSERT,  [&](){ handleInsert(player, word2, word3); } },
-        { Command::LOOK,    [&](){ handleLook(player, word2); } },
+        { Command::GO,      [&](){ handleGo(player, phrase); } },
+        { Command::INSERT,  [&](){ handleInsert(player, word2, word3); } }, // Placeholder
+        { Command::LOOK,    [&](){ handleLook(player, phrase); } }, // Placeholder
         { Command::MOVE,    [&](){ cout << "Move not implemented yet." << endl; } },
         { Command::READ,    [&](){ cout << "Read not implemented yet." << endl; } },
         { Command::TALK,    [&](){ cout << "Talk not implemented yet." << endl; } },
@@ -80,7 +82,7 @@ int main()
         cout << termcolor::grey << termcolor::on_cyan <<"Raw command: " << input << termcolor::reset << endl;
 
         // Interpret the input
-        interpretInput(input, word1, word2, word3);
+        interpretInput(input, word1, word2, word3, phrase);
 
         try {
             command = parseCommand(word1); // This will actually turn the user input into a command type
