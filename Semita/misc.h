@@ -10,3 +10,4 @@ int choosePlayerClass(Player& player);
 void interpretInput(std::string& input, std::string& word1, std::string& word2, std::string& word3, std::string& phrase);
 std::string capitaliseNoun(const std::string& input);
 std::string formatList(const std::vector<std::string>& items);
+bool isLocal(const std::string& entityLocation, const Player& player);

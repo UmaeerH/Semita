@@ -105,19 +105,16 @@ void handleInsert(Player& player, const std::string& arg, const std::string& loc
 
 // Take Command
 void handleTake(Player& player, const std::string& arg) {
-    std::string currentLocation = player.getLocation();
-
-    // Check if the object exists in the current location
     const auto& objects = getObjectTable();
     const auto& locationTable = getObjectLocationTable();
     auto objIt = std::find_if(objects.begin(), objects.end(),
         [&](const GameObject& obj) {
             auto locIt = locationTable.find(obj.objectName);
-            return obj.objectName == arg && locIt != locationTable.end() && locIt->second == currentLocation;
+            return obj.objectName == arg && locIt != locationTable.end() && isLocal(locIt->second, player);
         });
 
     if (objIt == objects.end()) {
-        std::cout << "I cannot find that" << endl;
+        std::cout << termcolor::red << "I cannot find that" << termcolor::reset << endl;
         return;
     }
 
@@ -127,14 +124,15 @@ void handleTake(Player& player, const std::string& arg) {
     if (takeIt != takeTable.end()) {
         const auto& takePair = takeIt->second;
         if (takePair.second) {
-            cout << takePair.first << endl;
-            cout << std::string(arg) << " is now in your inventory."  << endl;
+            cout << termcolor::green << takePair.first << termcolor::reset << endl;
+            cout << termcolor::green << std::string(arg) << " is now in your inventory."  << termcolor::reset << endl;
             // TODO: placeholder for moving obj to inv
+            
         } else {
-            cout << takePair.first << endl;
+            cout << termcolor::red << takePair.first << termcolor::reset << endl;
         }
     } else { // Generic message if no specific take entry exists
-        cout << arg << " cannot be taken" << endl;
+        cout << termcolor::red << arg << " cannot be taken" << termcolor::reset << endl;
     }
 }
 
@@ -150,7 +148,7 @@ void handleLook(Player& player, const std::string& arg) {
         std::vector<std::string> foundObjects;
         for (const auto& obj : objects) {
             auto locIt = locationTable.find(obj.objectName);
-            if (locIt != locationTable.end() && locIt->second == currentLocation) {
+            if (locIt != locationTable.end() && isLocal(locIt->second, player)) {
                 foundObjects.push_back(obj.objectName);
             }
         }
@@ -162,7 +160,7 @@ void handleLook(Player& player, const std::string& arg) {
         const auto& npcs = getNPCTable();
         std::vector<std::string> foundNPCs;
         for (const auto& npc : npcs) {
-            if (npc.location == currentLocation) {
+            if (isLocal(npc.location, player)) {
                 foundNPCs.push_back(npc.name);
             }
         }

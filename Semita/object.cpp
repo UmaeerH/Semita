@@ -9,7 +9,8 @@ const std::vector<GameObject> objectTable = {
     { "Leather Helmet", "A worn leather cap. Probably won't protect against anything more than a humble pebble", 10 },
     { "Small Sack", "A small brown sack. Looks like it has coins inside", 30 },
     { "Purple Herb", "A mysterious and alluring piece of vegetation. Probably best not to touch this with your bare hands", 0 },
-    { "Seashell", "Looks beautiful. This could be valuable", 15 }
+    { "Seashell", "Looks beautiful. This could be valuable", 15 },
+    { "Boulder", "A large boulder. It looks immovable and too heavy to pick up", 0 }
 };
 
 // Object location table - affects when the player can interact with the object

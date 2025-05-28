@@ -132,3 +132,8 @@ std::string formatList(const std::vector<std::string>& items) {
     }
     return result;
 }
+
+// Utility function to check if an entity is in the player's current location
+bool isLocal(const std::string& entityLocation, const Player& player) {
+    return entityLocation == player.getLocation();
+}
