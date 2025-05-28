@@ -1,6 +1,8 @@
 #include "misc.h"
 #include "termcolor/termcolor.hpp"
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -114,4 +116,19 @@ int choosePlayerClass(Player& player) {
         }
     }
     return 0;
+}
+
+// Utility function to format a list with commas and '&'
+std::string formatList(const std::vector<std::string>& items) {
+    if (items.empty()) return "";
+    if (items.size() == 1) return items[0];
+    std::string result;
+    for (size_t i = 0; i < items.size(); ++i) {
+        result += items[i];
+        if (i + 2 == items.size())
+            result += " & ";
+        else if (i + 1 < items.size())
+            result += ", ";
+    }
+    return result;
 }

@@ -69,7 +69,7 @@ static const std::unordered_map<Command, std::string> commandDescriptions = {
     {Command::LOAD, "Load a saved game."},
     {Command::GO, "Move to another location. Usage: go <location> \nAlias: travel"},
     {Command::INSERT, "Insert an item somewhere. Usage: insert <item> <location> \nAlias: put"},
-    {Command::LOOK, "Look around or inspect something. Usage: look [object] \nAlias: inspect, view"},
+    {Command::LOOK, "Look around the area or inspect something. Usage: look [object]\nGreen text indicates an object you can interact with. Cyan text indicates an NPC you can interact with.\nAlias: inspect, view"},
     {Command::MOVE, "Move an item around. Usage: move <item> \nAlias: press"},
     {Command::READ, "Read an item or sign. Usage: read <item>"},
     {Command::TALK, "Talk to someone. Usage: talk <person> \nAlias: speak"},

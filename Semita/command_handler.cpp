@@ -6,6 +6,7 @@
 
 #include "command_handler.h"
 #include "command.h"
+#include "misc.h"
 #include "player.h"
 #include "object.h"
 #include "npc.h"
@@ -108,6 +109,32 @@ void handleLook(Player& player, const std::string& arg) {
     if (arg.empty()) { // No argument given, description of current location
         cout << "You are at: " << currentLocation << endl;
         cout << "You look around your environment: " << getLocationDescription(currentLocation) << endl;
+        // List objects in the area
+        const auto& objects = getObjectTable();
+        const auto& locationTable = getObjectLocationTable();
+        std::vector<std::string> foundObjects;
+        for (const auto& obj : objects) {
+            auto locIt = locationTable.find(obj.objectName);
+            if (locIt != locationTable.end() && locIt->second == currentLocation) {
+                foundObjects.push_back(obj.objectName);
+            }
+        }
+        if (!foundObjects.empty()) {
+            cout << termcolor::green << "You spot: " << formatList(foundObjects) << termcolor::reset << endl;
+        }
+
+        // List NPCs in the area
+        const auto& npcs = getNPCTable();
+        std::vector<std::string> foundNPCs;
+        for (const auto& npc : npcs) {
+            if (npc.location == currentLocation) {
+                foundNPCs.push_back(npc.name);
+            }
+        }
+        if (!foundNPCs.empty()) {
+            cout << termcolor::cyan << "You notice " << formatList(foundNPCs) << termcolor::reset << endl;
+        }
+
     } else {
         // Search for the object in the object table
         const auto& objects = getObjectTable();
