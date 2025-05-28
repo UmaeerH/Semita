@@ -267,7 +267,7 @@ void handleStatus(Player& player) {
 
 // Debug commands
 
-//Exp hack
+//Experience Command
 void handleEXP(Player& player, const std::string& arg) {
     try {
         int amount = std::stoi(arg);

@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
 
 // Starting Values
 Player::Player() : 
@@ -99,6 +100,29 @@ void Player::setLocation(const std::string& newLocation) {
     location = newLocation;
 }
 
+// PLAYER CLASS SECTION
+
+const std::unordered_map<PlayerClass, ClassStats> classStatsTable = {
+    { PlayerClass::Knight,   {10, 3, 12, 4, 6, 2, 8, 1} },
+    { PlayerClass::Mage,     {13, 5, 5, 1, 6, 2, 12, 3} },
+    { PlayerClass::Assassin, {7, 2, 5, 1, 14, 5, 13, 4} },
+    { PlayerClass::Archer,   {16, 6, 9, 3, 5, 1, 7, 1} }
+};
+
+/*
+What the map above means:
+Knight
+startingStrength = 10, levelStrength = 4 // High Strength
+startingDefence = 10, levelDefence = 6 // High Defence (scales fast)
+startingAgility = 6, levelAgility = 2 // Low agility
+startingSpeed = 8, levelSpeed = 1 // Low speed
+
+Mage
+startingStrength = 13, levelStrength = 5 // High strength (magic power)
+startingDefence = 5, levelDefence = 1 // Low defence
+startingAgility = 6, levelAgility = 2 // Low agility
+startingSpeed = 12, levelSpeed = 3 // High speed
+*/
 
 // PlayerClass getter and setter
 PlayerClass Player::getClass() const {
@@ -107,4 +131,8 @@ PlayerClass Player::getClass() const {
 
 void Player::setClass(PlayerClass newClass) {
     playerClass = newClass;
+    Player::setStrength(classStatsTable.at(newClass).startingStrength);
+    Player::setDefence(classStatsTable.at(newClass).startingDefence);
+    Player::setAgility(classStatsTable.at(newClass).startingAgility);
+    Player::setSpeed(classStatsTable.at(newClass).startingSpeed);
 }

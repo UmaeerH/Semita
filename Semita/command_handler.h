@@ -18,4 +18,5 @@ void handleTalk(Player& player, const std::string& arg);
 void handleRead(Player& player, const std::string& arg);
 void handleInventory(Player& player);
 void handleStatus(Player& player);
-void handleEXP(Player& player, int amount);
+// Debug Commands
+void handleEXP(Player& player, const std::string& arg);

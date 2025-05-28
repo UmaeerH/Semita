@@ -12,6 +12,13 @@ enum class PlayerClass {
     Archer
 };
 
+struct ClassStats { // This affects the player's stats based on their class
+    int startingStrength, levelStrength;
+    int startingDefence,  levelDefence;
+    int startingAgility,  levelAgility;
+    int startingSpeed,    levelSpeed;
+};
+
 class Player {
 public:
     Player();
