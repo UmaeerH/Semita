@@ -50,8 +50,15 @@ public:
     void addExperience(int amount);
     int getLevel() const;
 
+    // Player Gold
+    int getGold() const;
+    void addGold(int amount);
+    void setGold(int newGold);
+    bool spendGold(int amount);
+
 private:
     int Experience;
+    int Gold;
     int HP;
     int Mana;
     int Strength;

@@ -16,8 +16,38 @@ Player::Player() :
     Defence(10),
     Agility(10),
     Speed(10),
-    Experience(0)
+    Experience(0),
+    Gold(20)
 {}
+
+// Gold Getter and Setter
+int Player::getGold() const {
+    return Gold;
+}
+
+void Player::setGold(int newGold) {
+    Gold = newGold;
+}
+
+void Player::addGold(int amount) {
+    if (amount < 0) {
+        std::cerr << "Error: Cannot add negative gold." << std::endl;
+        return;
+    }
+    Gold += amount;
+}
+
+bool Player::spendGold(int amount) {
+    if (amount < 0) {
+        std::cerr << "Error: Cannot use negative gold." << std::endl;
+        return false; // We shouldn't really reach this but just in case an item's price is set as negative somehow
+    }
+    if (Gold < amount) {
+        return false; // Reject purchase if not enough gold -> handle with dialogue
+    }
+    Gold -= amount;
+    return true; // Purchase successful
+}
 
 // HP getter and setter
 int Player::getHP() const {
@@ -36,7 +66,6 @@ void Player::setMana(int newMana) {
 }
 
 // Combat Stats getters and setters
-
 int Player::getStrength() const {
     return Strength;
 }
@@ -129,7 +158,7 @@ void Player::addExperience(int earnedXP) {
         std::cerr << "Error: Cannot add negative experience." << std::endl;
         return;
     }
-    
+
     int oldLevel = getLevel();
     Experience += earnedXP;
     int newLevel = getLevel();

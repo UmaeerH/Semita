@@ -256,10 +256,11 @@ void handleStatus(Player& player) {
     cout << "======================================" << endl;
     cout << "Player Status" << endl;
     cout << "Location: " << player.getLocation() << endl;
-    cout << termcolor::red << "HP: " << player.getHP() << termcolor::reset << endl;
-    cout << termcolor::blue << "Mana: " << player.getMana() << termcolor::reset << endl;
-    cout << termcolor::cyan << "Class: " << playerClassToString(player.getClass()) << termcolor::reset << endl;
-    cout << termcolor::yellow << "Level: " << player.getLevel() << termcolor::reset << endl;
+    cout << termcolor::red << "HP: " << player.getHP() << endl;
+    cout << termcolor::blue << "Mana: " << player.getMana() << endl;
+    cout << termcolor::cyan << "Class: " << playerClassToString(player.getClass()) << endl;
+    cout << termcolor::yellow << "Level: " << player.getLevel() << endl;
+    cout << "Gold: " << player.getGold() << endl;
     cout << termcolor::green << "STR: " << player.getStrength() << "\tDEF: " << player.getDefence() 
     << "\tAGI: " << player.getAgility() << "\tSPD: " << player.getSpeed() << termcolor::reset << endl;
     cout << "======================================" << endl;

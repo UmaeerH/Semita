@@ -5,7 +5,7 @@ class Player;
 
 std::string capitaliseNoun(std::string& input);
 // Meta Commands
-void handleHelp(const std::string& arg = ""); 
+void handleHelp(const std::string& arg); 
 void handleVerbs();
 bool handleQuit();
 // In-game Commands
