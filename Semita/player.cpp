@@ -4,13 +4,15 @@
 #include <iostream>
 #include <unordered_map>
 
+#include "../Semita/termcolor/termcolor.hpp"
+
 // Starting Values
 Player::Player() : 
     location("Town"),
     HP(100),
     Mana(100),
     playerClass(PlayerClass::Unselected),
-    Strength(10), // Default values for now, changed upon class selection + level up
+    Strength(10), // Default values, changed upon class selection + level up
     Defence(10),
     Agility(10),
     Speed(10),
@@ -60,36 +62,6 @@ void Player::setSpeed(int newSpd) {
     Speed = newSpd;
 }
 
-// Player Level & XP getter and setter
-
-int Player::getExperience() const {
-    return Experience;
-}
-
-// We won't use the setExperience function directly. Instead we'll use addExperience
-void Player::setExperience(int newXP) {
-    Experience = newXP;
-}
-
-void Player::addExperience(int earnedXP) {
-    int oldLevel = getLevel();
-    Experience += earnedXP;
-    int newLevel = getLevel();
-    if (newLevel > oldLevel) {
-        // Placeholder of just sending a message
-        std::cout << "Congratulations! You reached level " << newLevel << "!" << std::endl;
-    }
-}
-
-static const std::vector<int> levelThresholds = {0, 20, 50, 85, 150, 250};
-// I.e. level 1 is 0 XP, level 2 is 20 XP, level 3 is 50 XP, etc.
-
-int Player::getLevel() const {
-    // upper_bound returns the first element greater than Experience
-    // The index of that element is the player's level
-    auto it = std::upper_bound(levelThresholds.begin(), levelThresholds.end(), Experience);
-    return static_cast<int>(it - levelThresholds.begin());
-}
 
 // Location getter and setter
 std::string Player::getLocation() const {
@@ -103,7 +75,7 @@ void Player::setLocation(const std::string& newLocation) {
 // PLAYER CLASS SECTION
 
 const std::unordered_map<PlayerClass, ClassStats> classStatsTable = {
-    { PlayerClass::Knight,   {10, 3, 12, 4, 6, 2, 8, 1} },
+    { PlayerClass::Knight,   {10, 4, 10, 6, 6, 2, 8, 1} },
     { PlayerClass::Mage,     {13, 5, 5, 1, 6, 2, 12, 3} },
     { PlayerClass::Assassin, {7, 2, 5, 1, 14, 5, 13, 4} },
     { PlayerClass::Archer,   {16, 6, 9, 3, 5, 1, 7, 1} }
@@ -111,17 +83,11 @@ const std::unordered_map<PlayerClass, ClassStats> classStatsTable = {
 
 /*
 What the map above means:
-Knight
+Knight 
 startingStrength = 10, levelStrength = 4 // High Strength
 startingDefence = 10, levelDefence = 6 // High Defence (scales fast)
 startingAgility = 6, levelAgility = 2 // Low agility
-startingSpeed = 8, levelSpeed = 1 // Low speed
-
-Mage
-startingStrength = 13, levelStrength = 5 // High strength (magic power)
-startingDefence = 5, levelDefence = 1 // Low defence
-startingAgility = 6, levelAgility = 2 // Low agility
-startingSpeed = 12, levelSpeed = 3 // High speed
+startingSpeed = 8, levelSpeed = 1 // Mild speed
 */
 
 // PlayerClass getter and setter
@@ -135,4 +101,67 @@ void Player::setClass(PlayerClass newClass) {
     Player::setDefence(classStatsTable.at(newClass).startingDefence);
     Player::setAgility(classStatsTable.at(newClass).startingAgility);
     Player::setSpeed(classStatsTable.at(newClass).startingSpeed);
+}
+
+// Player Level & XP Section
+
+int Player::getExperience() const {
+    return Experience;
+}
+
+static const std::vector<int> levelThresholds = {0, 20, 50, 85, 150, 250};
+// I.e. level 1 is 0 XP, level 2 is 20 XP, level 3 is 50 XP, etc.
+
+int Player::getLevel() const {
+    // upper_bound returns the first element greater than Experience
+    // The index of that element is the player's level
+    auto it = std::upper_bound(levelThresholds.begin(), levelThresholds.end(), Experience);
+    return static_cast<int>(it - levelThresholds.begin());
+}
+
+// We won't use the setExperience function directly. Instead we'll use addExperience
+void Player::setExperience(int newXP) {
+    Experience = newXP;
+}
+
+void Player::addExperience(int earnedXP) {
+    if (earnedXP < 0) {
+        std::cerr << "Error: Cannot add negative experience." << std::endl;
+        return;
+    }
+    
+    int oldLevel = getLevel();
+    Experience += earnedXP;
+    int newLevel = getLevel();
+
+    const ClassStats& stats = classStatsTable.at(playerClass);
+
+    for (int lvl = oldLevel + 1; lvl <= newLevel; ++lvl) {
+        int prevStrength = Strength;
+        int prevDefence  = Defence;
+        int prevAgility  = Agility;
+        int prevSpeed    = Speed;
+        int prevHP       = HP;
+        int prevMana     = Mana;
+
+        // Increase stats for this level up
+        Strength += stats.levelStrength;
+        Defence  += stats.levelDefence;
+        Agility  += stats.levelAgility;
+        Speed    += stats.levelSpeed;
+        HP      += 20; // Increase HP by a fixed amount per level
+        Mana    += (playerClass == PlayerClass::Mage ? 5 : 0);  // Increase Mana by 5 for Mages only
+
+        // Print level up message
+        std::cout << "================================================" << std::endl;
+        std::cout << "You level up to level " << lvl << "! EXP: " << Experience << "/" 
+                  << (lvl < static_cast<int>(levelThresholds.size()) ? levelThresholds[lvl] : Experience) << std::endl;
+        std::cout << termcolor::red    << "HP:  " << prevHP << "->" << HP 
+                  << termcolor::bright_blue << "    MP:  " << prevMana << "->" << Mana << std::endl;
+        std::cout << termcolor::yellow << "STR: " << prevStrength << "->" << Strength
+                  << "  |  Def: " << prevDefence << "->" << Defence
+                  << "  |  AGI: " << prevAgility << "->" << Agility
+                  << "  |  SPD: " << prevSpeed   << "->" << Speed << termcolor::reset << std::endl;
+        std::cout << "================================================" << std::endl;
+    }
 }
