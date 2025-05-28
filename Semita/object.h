@@ -22,3 +22,5 @@ const std::unordered_map<std::string, std::string>& getObjectLocationTable();
 const std::unordered_map<std::string, std::string>& getItemReadTable();
 const std::unordered_map<std::string, std::pair<std::string, bool>>& getItemTakeTable();
 const std::unordered_map<std::string, MoveEntry>& getItemMoveTable();
+
+void toInventory(const std::string& objectName);

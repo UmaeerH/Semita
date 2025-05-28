@@ -126,8 +126,7 @@ void handleTake(Player& player, const std::string& arg) {
         if (takePair.second) {
             cout << termcolor::green << takePair.first << termcolor::reset << endl;
             cout << termcolor::green << std::string(arg) << " is now in your inventory."  << termcolor::reset << endl;
-            // TODO: placeholder for moving obj to inv
-            
+            toInventory(arg);
         } else {
             cout << termcolor::red << takePair.first << termcolor::reset << endl;
         }

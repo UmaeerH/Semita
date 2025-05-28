@@ -48,9 +48,18 @@ static std::unordered_map<std::string, MoveEntry> itemMoveTable = {
     { "Stone Lever", { "You move the lever with all your might. After enough force, it slams down, echoing down the cave", false } }
 };
 
-// Accessor functions 
+// Accessor Functions 
 const std::vector<GameObject>& getObjectTable()                                         { return objectTable; }
 const std::unordered_map<std::string, std::string>& getObjectLocationTable()            { return objectLocationTable; }
 const std::unordered_map<std::string, std::string>& getItemReadTable()                  { return itemReadTable; }
 const std::unordered_map<std::string, std::pair<std::string, bool>>& getItemTakeTable() { return itemTakeTable; }
 const std::unordered_map<std::string, MoveEntry>& getItemMoveTable()                    { return itemMoveTable; }
+
+// Other Functions
+void toInventory(const std::string& objectName) {
+    auto& locTable = const_cast<std::unordered_map<std::string, std::string>&>(getObjectLocationTable());
+    auto it = locTable.find(objectName);
+    if (it != locTable.end()) {
+        it->second = "Inventory";
+    }
+}
