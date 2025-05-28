@@ -27,7 +27,7 @@
 *.lib
 
 # Executables
-*.exe
+# *.exe -> Allowing exe for ease of testing 
 *.out
 *.app
 
