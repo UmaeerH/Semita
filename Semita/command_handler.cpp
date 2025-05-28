@@ -20,10 +20,6 @@ std::string getCommandDescription(const std::string& command);
 
 using namespace std;
 
-// Not exactly command handling, but a function to capitalise the first letter of a noun (2nd word)
-
-
-
 // META COMMANDS
 // Help Command
 void handleHelp(const std::string& arg) {
@@ -263,7 +259,23 @@ void handleStatus(Player& player) {
     cout << termcolor::red << "HP: " << player.getHP() << termcolor::reset << endl;
     cout << termcolor::blue << "Mana: " << player.getMana() << termcolor::reset << endl;
     cout << termcolor::cyan << "Class: " << playerClassToString(player.getClass()) << termcolor::reset << endl;
+    cout << termcolor::yellow << "Level: " << player.getLevel() << termcolor::reset << endl;
     cout << termcolor::green << "STR: " << player.getStrength() << "\tDEF: " << player.getDefence() 
     << "\tAGI: " << player.getAgility() << "\tSPD: " << player.getSpeed() << termcolor::reset << endl;
     cout << "======================================" << endl;
+}
+
+// Debug commands
+
+//Exp hack
+void handleEXP(Player& player, const std::string& arg) {
+    try {
+        int amount = std::stoi(arg);
+        player.addExperience(amount);
+        cout << "You gained " << amount << " experience points." << endl;
+    } catch (const std::invalid_argument&) {
+        cout << "Invalid amount: " << arg << endl;
+    } catch (const std::out_of_range&) {
+        cout << "Amount is out of range." << endl;
+    }
 }

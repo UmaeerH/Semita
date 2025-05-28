@@ -47,7 +47,8 @@ Command parseCommand(const std::string& input) {
         {"defend", Command::DEFEND},
         {"flee", Command::FLEE},
         {"status", Command::STATUS},
-        {"s", Command::STATUS} //a
+        {"s", Command::STATUS}, //a
+        {"exp", Command::GIVEEXP}, // Debug command
     };
 
     std::string cmd = input;
@@ -89,7 +90,8 @@ static const std::unordered_map<Command, std::string> commandDescriptions = {
     {Command::DEFEND, "Defend for the next turn."},
     {Command::FLEE, "Attempt to run away from battle."},
     {Command::STATUS, "Show your current stats. \nAlias: s"},
-    {Command::UNKNOWN, "Unknown command."}
+    {Command::UNKNOWN, "Unknown command."},
+    {Command::GIVEEXP, "Debug command to give EXP."}
 };
 
 // Helper function to get a command description by Command::TYPE

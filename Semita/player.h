@@ -30,14 +30,21 @@ public:
     void setAgility(int newAgi);
     int getSpeed() const;
     void setSpeed(int newSpd);
-    
     // Player class
     PlayerClass getClass() const;
     void setClass(PlayerClass newClass);
     // Player location
     std::string getLocation() const;
     void setLocation(const std::string& newLocation);
+
+    // Player Level & XP
+    int getExperience() const;
+    void setExperience(int newExperience); // Not used apart from testing
+    void addExperience(int amount);
+    int getLevel() const;
+
 private:
+    int Experience;
     int HP;
     int Mana;
     int Strength;

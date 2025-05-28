@@ -32,7 +32,9 @@ enum class Command {
     SKILL,
     DEFEND,
     FLEE,
-    STATUS
+    STATUS,
+    // Debug Commands:
+    GIVEEXP
 };
 
 Command parseCommand(const std::string& input);

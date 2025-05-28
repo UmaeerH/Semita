@@ -71,6 +71,9 @@ int main()
         { Command::SKILL,    [&](){ cout << "Skill not implemented yet." << endl; } },
         { Command::DEFEND,   [&](){ cout << "Defend not implemented yet." << endl; } },
         { Command::FLEE,     [&](){ cout << "Flee not implemented yet." << endl; } },
+        // Debug command
+        { Command::GIVEEXP, [&](){player.addExperience(100); cout << "Gave 100 EXP to player." << endl;} } 
+        // The debug command is here solely to test the leveling system and is not intended for use in the game
     };
 
     // Start up dialogue
