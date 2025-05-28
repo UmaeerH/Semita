@@ -12,6 +12,7 @@ bool handleQuit();
 void handleGo(Player& player, const std::string& arg);
 void handleInsert(Player& player, const std::string& arg1, const std::string& arg2);
 void handleLook(Player& player, const std::string& arg);
+void handleTake(Player& player, const std::string& arg);
 void handleTalk(Player& player, const std::string& arg);
 void handleRead(Player& player, const std::string& arg);
 void handleStatus(Player& player);

@@ -51,11 +51,11 @@ int main()
         { Command::GO,      [&](){ handleGo(player, phrase); } },
         { Command::INSERT,  [&](){ handleInsert(player, word2, word3); } }, // Placeholder
         { Command::LOOK,    [&](){ handleLook(player, phrase); } },
-        { Command::MOVE,    [&](){ cout << "Move not implemented yet." << endl; } },
+        { Command::MOVE,    [&](){ cout << "Take not implemented yet." << endl; } },
         { Command::READ,    [&](){ handleRead(player, phrase); } },
         { Command::TALK,    [&](){ handleTalk(player, phrase); } },
         { Command::LEAVE,   [&](){ cout << "Leave not implemented yet." << endl; } },
-        { Command::TAKE,    [&](){ cout << "Take not implemented yet." << endl; } },
+        { Command::TAKE,    [&](){ handleTake(player, phrase); } },
         { Command::HIT,     [&](){ cout << "Hit not implemented yet." << endl; } },
         { Command::USE,     [&](){ cout << "Use not implemented yet." << endl; } },
         { Command::EQUIP,   [&](){ cout << "Equip not implemented yet." << endl; } },

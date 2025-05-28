@@ -103,6 +103,41 @@ void handleInsert(Player& player, const std::string& arg, const std::string& loc
     cout << "You cannot insert " << arg << " into " << location << endl;
 } // Plceholder for now
 
+// Take Command
+void handleTake(Player& player, const std::string& arg) {
+    std::string currentLocation = player.getLocation();
+
+    // Check if the object exists in the current location
+    const auto& objects = getObjectTable();
+    const auto& locationTable = getObjectLocationTable();
+    auto objIt = std::find_if(objects.begin(), objects.end(),
+        [&](const GameObject& obj) {
+            auto locIt = locationTable.find(obj.objectName);
+            return obj.objectName == arg && locIt != locationTable.end() && locIt->second == currentLocation;
+        });
+
+    if (objIt == objects.end()) {
+        std::cout << "I cannot find that" << endl;
+        return;
+    }
+
+    // Check if the object has a Take entry
+    const auto& takeTable = getItemTakeTable();
+    auto takeIt = takeTable.find(arg);
+    if (takeIt != takeTable.end()) {
+        const auto& takePair = takeIt->second;
+        if (takePair.second) {
+            cout << takePair.first << endl;
+            cout << std::string(arg) << " is now in your inventory."  << endl;
+            // TODO: placeholder for moving obj to inv
+        } else {
+            cout << takePair.first << endl;
+        }
+    } else { // Generic message if no specific take entry exists
+        cout << arg << " cannot be taken" << endl;
+    }
+}
+
 // Look Command
 void handleLook(Player& player, const std::string& arg) {
     string currentLocation = player.getLocation();
