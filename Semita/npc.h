@@ -13,3 +13,4 @@ struct NPC {
 
 const std::vector<NPC>& getNPCTable();
 const std::unordered_map<std::string, std::string>& getNPCDialogueTable();
+const std::unordered_map<std::string, std::string>& getNPCLookTable();

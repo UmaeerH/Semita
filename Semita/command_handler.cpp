@@ -114,7 +114,7 @@ void handleTake(Player& player, const std::string& arg) {
         });
 
     if (objIt == objects.end()) {
-        std::cout << termcolor::red << "I cannot find that" << termcolor::reset << endl;
+        std::cout << termcolor::red << "I cannot take that" << termcolor::reset << endl;
         return;
     }
 
@@ -167,25 +167,8 @@ void handleLook(Player& player, const std::string& arg) {
         if (!foundNPCs.empty()) {
             cout << termcolor::cyan << "You notice " << formatList(foundNPCs) << termcolor::reset << endl;
         }
-
     } else {
-        // Search for the object in the object table
-        const auto& objects = getObjectTable();
-        auto it = std::find_if(objects.begin(), objects.end(),
-            [&](const GameObject& obj) {
-                return obj.objectName == arg;
-            });
-        if (it != objects.end()) {
-            const auto& locationTable = getObjectLocationTable();
-            auto locIt = locationTable.find(it->objectName);
-            if (locIt != locationTable.end() &&
-                (locIt->second == currentLocation || locIt->second == "Inventory")) {
-                cout << "You look at: " << it->objectName << endl;
-                cout << "Description: " << it->objectDescription << endl;
-            } else {
-                cout << "There is no " << termcolor::red << arg << termcolor::reset << " around." << endl;
-            }
-        } else {
+        if (!printLookDescription(arg, player)) {
             cout << "There is no " << termcolor::red << arg << termcolor::reset << " around." << endl;
         }
     }

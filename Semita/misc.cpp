@@ -79,7 +79,10 @@ void interpretInput(std::string& input, std::string& word1, std::string& word2, 
     }
 }
 
-
+// Utility function to check if an entity is in the player's current location
+bool isLocal(const std::string& entityLocation, const Player& player) {
+    return entityLocation == player.getLocation();
+}
 
 int choosePlayerClass(Player& player) {
     while (true) {
@@ -118,6 +121,7 @@ int choosePlayerClass(Player& player) {
     return 0;
 }
 
+
 // Convert class to string, for printing
 std::string playerClassToString(PlayerClass pc) {
     switch (pc) {
@@ -145,7 +149,39 @@ std::string formatList(const std::vector<std::string>& items) {
     return result;
 }
 
-// Utility function to check if an entity is in the player's current location
-bool isLocal(const std::string& entityLocation, const Player& player) {
-    return entityLocation == player.getLocation();
+
+// Helper function to print look description for object or NPC
+bool printLookDescription(const std::string& name, const Player& player) {
+    // Try object first
+    const auto& objects = getObjectTable();
+    const auto& locationTable = getObjectLocationTable();
+    auto objIt = std::find_if(objects.begin(), objects.end(),
+        [&](const GameObject& obj) { return obj.objectName == name; });
+    if (objIt != objects.end()) {
+        auto locIt = locationTable.find(objIt->objectName);
+        if (locIt != locationTable.end() &&
+            (isLocal(locIt->second, player) || locIt->second == "Inventory")) {
+            std::cout << "You look at: " << objIt->objectName << std::endl;
+            std::cout << "Description: " << objIt->objectDescription << std::endl;
+            return true;
+        }
+    }
+
+    // Try NPC
+    const auto& npcs = getNPCTable();
+    auto npcIt = std::find_if(npcs.begin(), npcs.end(),
+        [&](const NPC& npc) { return npc.name == name && isLocal(npc.location, player); });
+    if (npcIt != npcs.end()) {
+        const auto& npcLookTable = getNPCLookTable();
+        auto descIt = npcLookTable.find(npcIt->name);
+        std::cout << "You look at: " << npcIt->name << std::endl;
+        if (descIt != npcLookTable.end()) {
+            std::cout << "Description: " << descIt->second << std::endl;
+        } else {
+            std::cout << "They look unremarkable." << std::endl;
+        }
+        return true;
+    }
+
+    return false;
 }
