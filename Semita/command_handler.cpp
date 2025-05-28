@@ -251,6 +251,29 @@ void handleInventory(Player& player) {
     }
 }
 
+// Use Command
+void handleUse(Player& player, const std::string& arg) {
+    // Check if the object is in the use table
+    auto it = getItemUseTable().find(arg);
+    if (it != getItemUseTable().end()) {
+        // Check if the item is in the player's inventory
+        const auto& locationTable = getObjectLocationTable();
+        auto locIt = locationTable.find(arg);
+        if (locIt != locationTable.end() && locIt->second == "Inventory") {
+            cout << "You use the " << arg << "." << endl;
+            it->second(player); // Call the use function for the item
+
+            // Move the item to "Void" after use
+            auto& mutableLocationTable = const_cast<std::unordered_map<std::string, std::string>&>(getObjectLocationTable());
+            mutableLocationTable[arg] = "Void";
+        } else {
+            cout << "You do not have " << termcolor::red << arg << termcolor::reset << " in your inventory." << endl;
+        }
+    } else {
+        cout << "You cannot use " << termcolor::red << arg << termcolor::reset << endl;
+    }
+}
+
 // Status Command
 void handleStatus(Player& player) {
     cout << "======================================" << endl;

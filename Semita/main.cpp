@@ -57,7 +57,7 @@ int main()
         { Command::LEAVE,    [&](){ cout << "Leave not implemented yet." << endl; } },
         { Command::TAKE,     [&](){ handleTake(player, phrase); } },
         { Command::HIT,      [&](){ cout << "Hit not implemented yet." << endl; } },
-        { Command::USE,      [&](){ cout << "Use not implemented yet." << endl; } },
+        { Command::USE,      [&](){ handleUse(player, phrase); } },
         { Command::EQUIP,    [&](){ cout << "Equip not implemented yet." << endl; } },
         { Command::UNEQUIP,  [&](){ cout << "Unequip not implemented yet." << endl; } },
         { Command::DISCARD,  [&](){ cout << "Discard not implemented yet." << endl; } },

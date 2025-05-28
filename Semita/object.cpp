@@ -1,7 +1,10 @@
 #include "object.h"
+#include "player.h"
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <functional>
+
 
 // Object table 
 const std::vector<GameObject> objectTable = {
@@ -48,12 +51,18 @@ static std::unordered_map<std::string, MoveEntry> itemMoveTable = {
     { "Stone Lever", { "You move the lever with all your might. After enough force, it slams down, echoing down the cave", false } }
 };
 
+// Use table for the "use" command"
+static std::unordered_map<std::string, std::function<void(Player&)>> itemUseTable = {
+    { "Small Sack", [](Player& player){ player.addGold(35); } } // Gives 35 gold to player when used
+};
+
 // Accessor Functions 
 const std::vector<GameObject>& getObjectTable()                                         { return objectTable; }
 const std::unordered_map<std::string, std::string>& getObjectLocationTable()            { return objectLocationTable; }
 const std::unordered_map<std::string, std::string>& getItemReadTable()                  { return itemReadTable; }
 const std::unordered_map<std::string, std::pair<std::string, bool>>& getItemTakeTable() { return itemTakeTable; }
 const std::unordered_map<std::string, MoveEntry>& getItemMoveTable()                    { return itemMoveTable; }
+const std::unordered_map<std::string, std::function<void(Player&)>>& getItemUseTable()  { return itemUseTable; }
 
 // Other Functions
 void toInventory(const std::string& objectName) {
