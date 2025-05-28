@@ -14,6 +14,7 @@
 #include "command_handler.h"
 #include "player.h"
 #include "object.h"
+#include "npc.h"
 #include "misc.h" // For misc functions
 
 using namespace std;
@@ -50,7 +51,7 @@ int main()
         { Command::LOOK,    [&](){ handleLook(player, phrase); } },
         { Command::MOVE,    [&](){ cout << "Move not implemented yet." << endl; } },
         { Command::READ,    [&](){ handleRead(player, phrase); } },
-        { Command::TALK,    [&](){ cout << "Talk not implemented yet." << endl; } },
+        { Command::TALK,    [&](){ handleTalk(player, phrase); } },
         { Command::LEAVE,   [&](){ cout << "Leave not implemented yet." << endl; } },
         { Command::TAKE,    [&](){ cout << "Take not implemented yet." << endl; } },
         { Command::HIT,     [&](){ cout << "Hit not implemented yet." << endl; } },

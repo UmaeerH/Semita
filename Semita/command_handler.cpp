@@ -8,6 +8,7 @@
 #include "command.h"
 #include "player.h"
 #include "object.h"
+#include "npc.h"
 #include "map.h"
 
 // Forward declaration for getObjectLocationTable if not included in object.h
@@ -84,7 +85,7 @@ void handleGo(Player& player, const std::string& arg) {
 
 // Insert Command
 void handleInsert(Player& player, const std::string& arg, const std::string& location) {
-    cout << "You insert " << arg << " into " << location << endl;
+    cout << "You cannot insert " << arg << " into " << location << endl;
 } // Plceholder for now
 
 // Look Command
@@ -125,6 +126,22 @@ void handleRead(Player& player, const std::string& arg) {
         cout << termcolor::green << it->second << termcolor::reset << endl;
     } else {
         cout << "There's nothing to read on that" << endl;
+    }
+}
+
+// Talk Command
+void handleTalk(Player& player, const std::string& arg) {
+    if (arg.empty()) {
+        cout << "You talk to yourself." << endl;
+    } else {
+        // Search for the NPC in the dialogue table
+        auto it = getNPCDialogueTable().find(arg);
+        if (it != getNPCDialogueTable().end()) {
+            cout << "You talk to " << arg << "." << endl;
+            cout << termcolor::cyan << it->second << termcolor::reset << endl;
+        } else {
+            cout << "There is no " << termcolor::red << arg << termcolor::reset << " here to talk to." << endl;
+        }
     }
 }
 

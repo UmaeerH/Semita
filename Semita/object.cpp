@@ -14,7 +14,7 @@ const std::vector<GameObject> objectTable = {
 
 // Object location table - affects when the player can interact with the object
 const std::unordered_map<std::string, std::string> objectLocationTable = {
-    { "Note", "Inventory" },
+    { "Note", "Inventory" }, // For now, inventory will represent if the player has the item.
     { "Leather Helmet", "Fields" },
     { "Small Sack", "Fields" },
     { "Purple Herb", "Woodlands" },
