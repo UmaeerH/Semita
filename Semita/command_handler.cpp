@@ -136,6 +136,39 @@ void handleTake(Player& player, const std::string& arg) {
     }
 }
 
+// Move Command
+void handleMove(Player& player, const std::string& arg) {
+    const auto& objects = getObjectTable();
+    const auto& locationTable = getObjectLocationTable();
+    auto objIt = std::find_if(objects.begin(), objects.end(),
+        [&](const GameObject& obj) {
+            auto locIt = locationTable.find(obj.objectName);
+            return obj.objectName == arg && locIt != locationTable.end() && isLocal(locIt->second, player);
+        });
+
+    if (objIt == objects.end()) {
+        std::cout << "There is no " << termcolor::red << arg << termcolor::reset << " to move" << std::endl;
+        return;
+    }
+
+    // Get the move table (non-const to allow updating the bool)
+    static auto& moveTable = const_cast<std::unordered_map<std::string, MoveEntry>&>(getItemMoveTable());
+    auto moveIt = moveTable.find(arg);
+    if (moveIt == moveTable.end()) {
+        std::cout << "I cannot move " << termcolor::red << arg << termcolor::reset << std::endl;
+        return;
+    }
+
+    MoveEntry& entry = moveIt->second;
+    if (!entry.hasBeenMoved) {
+        std::cout << "You move " << termcolor::cyan << arg << termcolor::reset << std::endl;
+        std::cout << termcolor::green << entry.dialogue << termcolor::reset << std::endl;
+        entry.hasBeenMoved = true;
+    } else {
+        std::cout << termcolor::red << "I have already done that" << termcolor::reset << std::endl;
+    }
+}
+
 // Look Command
 void handleLook(Player& player, const std::string& arg) {
     string currentLocation = player.getLocation();

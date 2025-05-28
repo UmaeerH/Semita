@@ -51,7 +51,7 @@ int main()
         { Command::GO,       [&](){ handleGo(player, phrase); } },
         { Command::INSERT,   [&](){ handleInsert(player, word2, word3); } }, // Placeholder
         { Command::LOOK,     [&](){ handleLook(player, phrase); } },
-        { Command::MOVE,     [&](){ cout << "Take not implemented yet." << endl; } },
+        { Command::MOVE,     [&](){ handleMove(player, phrase); } },
         { Command::READ,     [&](){ handleRead(player, phrase); } },
         { Command::TALK,     [&](){ handleTalk(player, phrase); } },
         { Command::LEAVE,    [&](){ cout << "Leave not implemented yet." << endl; } },
@@ -83,9 +83,7 @@ int main()
         // Placeholder - prints raw input
         cout << termcolor::grey << termcolor::on_cyan <<"Raw command: " << input << termcolor::reset << endl;
 
-        // Interpret the input
         interpretInput(input, word1, word2, word3, phrase);
-
         try {
             command = parseCommand(word1); // This will actually turn the user input into a command type
         } catch (const std::invalid_argument&) {

@@ -12,7 +12,13 @@ struct GameObject {
         : objectName(name), objectDescription(desc), value(val) {}
 };
 
+struct MoveEntry {
+    std::string dialogue;
+    bool hasBeenMoved;
+};
+
 const std::vector<GameObject>& getObjectTable();
 const std::unordered_map<std::string, std::string>& getObjectLocationTable();
 const std::unordered_map<std::string, std::string>& getItemReadTable();
 const std::unordered_map<std::string, std::pair<std::string, bool>>& getItemTakeTable();
+const std::unordered_map<std::string, MoveEntry>& getItemMoveTable();
