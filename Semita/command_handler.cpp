@@ -219,15 +219,24 @@ void handleTalk(Player& player, const std::string& arg) {
     }
 }
 
-// Convert class to string, for printing
-std::string playerClassToString(PlayerClass pc) {
-    switch (pc) {
-        case PlayerClass::Unselected: return "Unselected";
-        case PlayerClass::Knight:     return "Knight";
-        case PlayerClass::Mage:       return "Mage";
-        case PlayerClass::Assassin:   return "Assassin";
-        case PlayerClass::Archer:     return "Archer";
-        default:                      return "Unknown";
+// Inventory Commmand
+void handleInventory(Player& player) {
+    cout << "You check your inventory." << endl;
+    const auto& objects = getObjectTable();
+    const auto& locationTable = getObjectLocationTable();
+    std::vector<std::string> inventoryItems;
+
+    for (const auto& obj : objects) {
+        auto locIt = locationTable.find(obj.objectName);
+        if (locIt != locationTable.end() && locIt->second == "Inventory") {
+            inventoryItems.push_back(obj.objectName);
+        }
+    }
+
+    if (inventoryItems.empty()) {
+        cout << "Your inventory is empty." << endl;
+    } else {
+        cout << termcolor::cyan << "You have: " << formatList(inventoryItems) << termcolor::reset << endl;
     }
 }
 
@@ -239,6 +248,7 @@ void handleStatus(Player& player) {
     cout << termcolor::red << "HP: " << player.getHP() << termcolor::reset << endl;
     cout << termcolor::blue << "Mana: " << player.getMana() << termcolor::reset << endl;
     cout << termcolor::cyan << "Class: " << playerClassToString(player.getClass()) << termcolor::reset << endl;
-    cout << termcolor::green << "STR: " << player.getStrength() << "\tDEF: " << player.getDefence() << "\tAGI: " << player.getAgility() << "\tSPD: " << player.getSpeed() << termcolor::reset << endl;
+    cout << termcolor::green << "STR: " << player.getStrength() << "\tDEF: " << player.getDefence() 
+    << "\tAGI: " << player.getAgility() << "\tSPD: " << player.getSpeed() << termcolor::reset << endl;
     cout << "======================================" << endl;
 }

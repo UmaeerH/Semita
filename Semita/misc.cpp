@@ -118,6 +118,18 @@ int choosePlayerClass(Player& player) {
     return 0;
 }
 
+// Convert class to string, for printing
+std::string playerClassToString(PlayerClass pc) {
+    switch (pc) {
+        case PlayerClass::Unselected: return "Unselected";
+        case PlayerClass::Knight:     return "Knight";
+        case PlayerClass::Mage:       return "Mage";
+        case PlayerClass::Assassin:   return "Assassin";
+        case PlayerClass::Archer:     return "Archer";
+        default:                      return "Unknown";
+    }
+}
+
 // Utility function to format a list with commas and '&'
 std::string formatList(const std::vector<std::string>& items) {
     if (items.empty()) return "";

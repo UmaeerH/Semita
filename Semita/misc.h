@@ -6,7 +6,10 @@
 #include "player.h"
 
 void introPrint();
+
 int choosePlayerClass(Player& player);
+std::string playerClassToString(PlayerClass pc);
+
 void interpretInput(std::string& input, std::string& word1, std::string& word2, std::string& word3, std::string& phrase);
 std::string capitaliseNoun(const std::string& input);
 std::string formatList(const std::vector<std::string>& items);

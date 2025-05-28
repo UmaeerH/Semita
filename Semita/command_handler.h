@@ -15,4 +15,5 @@ void handleLook(Player& player, const std::string& arg);
 void handleTake(Player& player, const std::string& arg);
 void handleTalk(Player& player, const std::string& arg);
 void handleRead(Player& player, const std::string& arg);
+void handleInventory(Player& player);
 void handleStatus(Player& player);
