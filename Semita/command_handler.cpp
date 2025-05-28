@@ -61,6 +61,20 @@ void handleVerbs() {
     cout << "For more information on a command, type \'Help {Command}\'." << endl;
 }
 
+// Quit Command
+bool handleQuit() {
+    std::cout << termcolor::red << "Are you sure you want to quit? (\"Y\" to confirm)" << termcolor::reset << std::endl;
+    std::cout << "> ";
+    std::string input;
+    std::getline(std::cin, input);
+    if (input == "Y" || input == "y") {
+        return true; // Confirm quit
+    } else {
+        std::cout << "Quit cancelled" << std::endl;
+        return false; // Cancel quit
+    }
+}
+
 
 // IN-GAME COMMANDS
 // Go Command

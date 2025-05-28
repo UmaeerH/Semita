@@ -37,6 +37,7 @@ int main()
     string phrase; // word2 + word3
     Command command = Command::UNKNOWN;
     Player player; // Define the player
+    bool quit = false;
 
     // Command handler dispatch table
     std::unordered_map<Command, std::function<void()>> handlers = {
@@ -45,6 +46,7 @@ int main()
         { Command::VERBS,   [&](){ handleVerbs(); } },
         { Command::SAVE,    [&](){ cout << "Save not implemented yet." << endl; } },
         { Command::LOAD,    [&](){ cout << "Load not implemented yet." << endl; } },
+        { Command::QUIT,    [&](){ if (handleQuit()) {quit = true;} } },
         // In-game Commmands
         { Command::GO,      [&](){ handleGo(player, phrase); } },
         { Command::INSERT,  [&](){ handleInsert(player, word2, word3); } }, // Placeholder
@@ -74,8 +76,7 @@ int main()
     // Start up dialogue
     introPrint();
     choosePlayerClass(player);  // cannot quit whilst choosing class - very minor issue
-
-    while(true)
+    while(!quit)
     {
         cout << "> ";
         getline(cin, input);
@@ -96,20 +97,7 @@ int main()
         // Use the table
         auto it = handlers.find(command);
         if (it != handlers.end()) {
-            it->second(); // Call the handler
-        }
-        else if (command == Command::QUIT) { // Quit confirmation, might move the command_handler 
-            cout << termcolor::red << "Are you sure you want to quit? (\"Y\" to confirm)" << termcolor::reset << endl;
-            cout << "> ";
-            std::string input;
-            getline(cin, input);
-            if (input == "Y" || input == "y") { // y or Y are accepted
-                break; // Exit the loop and quit game
-            } else {
-                cout << "Quit cancelled" << endl;
-                command = Command::UNKNOWN;
-                continue;
-            }
+            it->second();
         } else {
             cout << "Unknown or unhandled command." << endl;
         }
