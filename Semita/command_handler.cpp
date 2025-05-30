@@ -24,8 +24,9 @@ using namespace std;
 // Help Command
 void handleHelp(const std::string& arg) {
     if (arg.empty()) { // If argument is empty show this
-        cout << "Help: Welcome to Semita! This is a Text-Adventure Game." << endl;
-        cout << "To get a list of commands, type 'verbs'." << endl;
+        cout << termcolor::bright_green << "Help: Welcome to Semita! This is a Text-Adventure Game." << endl;
+        cout << "You can interact with the world, items, and characters using commands." << endl;
+        cout << "To get a list of the available commands, type 'verbs'." << termcolor::reset << endl;
         return;
     }
     // If argument is not empty, show the help for that command
@@ -87,8 +88,7 @@ void handleGo(Player& player, const std::string& arg) {
     if (checkNeighbours(currentLocation, arg)) { // Accept moving the player
         cout << "Moving from " << currentLocation << " to " << arg << endl;
         player.setLocation(arg);
-        cout << "You are now at: " << arg << endl;
-        cout << "Description: " << getLocationDescription(arg) << endl;
+        handleLook(player, ""); 
     } else { // Reject moving the player - not connected
         cout << "You can't go to \'" << arg << "\' from \'" << currentLocation << "\'." << endl;
     }
