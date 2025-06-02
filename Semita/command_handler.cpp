@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <unordered_map>
 
+#include "../Semita/fplus/fplus.hpp"
 #include "../Semita/termcolor/termcolor.hpp"
 
 #include "command_handler.h"
@@ -235,14 +236,19 @@ void handleInventory(Player& player) {
     cout << "You check your inventory." << endl;
     const auto& objects = getObjectTable();
     const auto& locationTable = getObjectLocationTable();
-    std::vector<std::string> inventoryItems;
 
-    for (const auto& obj : objects) {
-        auto locIt = locationTable.find(obj.objectName);
-        if (locIt != locationTable.end() && locIt->second == "Inventory") {
-            inventoryItems.push_back(obj.objectName);
-        }
-    }
+    // First filter objects that are in inventory, then transform to their names
+    auto inventoryObjects = fplus::keep_if(
+        [&](const GameObject& obj) {
+            auto locIt = locationTable.find(obj.objectName);
+            return locIt != locationTable.end() && locIt->second == "Inventory";
+        },
+        objects
+    );
+    auto inventoryItems = fplus::transform(
+        [](const GameObject& obj) { return obj.objectName; },
+        inventoryObjects
+    );
 
     if (inventoryItems.empty()) {
         cout << "Your inventory is empty." << endl;
