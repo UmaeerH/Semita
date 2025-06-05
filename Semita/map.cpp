@@ -61,3 +61,11 @@ std::string getLocationDescription(const std::string& location) {
     }
     return "No description available.";
 }
+
+std::vector<std::string> getAdjacentLocations(const std::string& location) {
+    auto it = adjacencyList.find(location);
+    if (it != adjacencyList.end()) {
+        return it->second;
+    }
+    return {};
+}

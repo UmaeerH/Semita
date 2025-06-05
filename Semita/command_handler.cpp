@@ -167,20 +167,26 @@ void handleMove(Player& player, const std::string& arg) {
 
 // Look Command
 void handleLook(Player& player, const std::string& arg) {
-    string currentLocation = player.getLocation();
-    if (arg.empty()) { // No argument given, description of current location
+    std::string currentLocation = player.getLocation();
+    if (arg.empty()) {
         cout << "You are at: " << currentLocation << endl;
         cout << "You look around your environment: " << getLocationDescription(currentLocation) << endl;
+
+        // Adjacent locations
+        const auto& adjacentLocations = getAdjacentLocations(currentLocation);
+        cout << termcolor::bright_white << "Nearby locations: "
+             << formatList(adjacentLocations) << termcolor::reset << endl;
+
         // List objects in the area
         const auto& objects = getObjectTable();
         const auto& locationTable = getObjectLocationTable();
         std::vector<std::string> foundObjects;
-        for (const auto& obj : objects) {
+        std::for_each(objects.begin(), objects.end(), [&](const GameObject& obj) {
             auto locIt = locationTable.find(obj.objectName);
             if (locIt != locationTable.end() && isLocal(locIt->second, player)) {
                 foundObjects.push_back(obj.objectName);
             }
-        }
+        });
         if (!foundObjects.empty()) {
             cout << termcolor::green << "You spot: " << formatList(foundObjects) << termcolor::reset << endl;
         }
@@ -188,11 +194,17 @@ void handleLook(Player& player, const std::string& arg) {
         // List NPCs in the area
         const auto& npcs = getNPCTable();
         std::vector<std::string> foundNPCs;
-        for (const auto& npc : npcs) {
-            if (isLocal(npc.location, player)) {
-                foundNPCs.push_back(npc.name);
+        std::transform(npcs.begin(), npcs.end(), std::back_inserter(foundNPCs),
+            [&](const NPC& npc) {
+                return isLocal(npc.location, player) ? npc.name : "";
             }
-        }
+        );
+
+        // Remove empty strings (non-local NPCs)
+        foundNPCs.erase(
+            std::remove_if(foundNPCs.begin(), foundNPCs.end(), [](const std::string& s) { return s.empty(); }),
+            foundNPCs.end()
+        );
         if (!foundNPCs.empty()) {
             cout << termcolor::cyan << "You notice " << formatList(foundNPCs) << termcolor::reset << endl;
         }
