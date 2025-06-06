@@ -17,3 +17,4 @@ std::string capitaliseNoun(const std::string& input);
 std::string formatList(const std::vector<std::string>& items);
 bool isLocal(const std::string& entityLocation, const Player& player);
 bool printLookDescription(const std::string& name, const Player& player);
+bool isInInventory(const std::string& item);

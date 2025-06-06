@@ -189,3 +189,10 @@ bool printLookDescription(const std::string& name, const Player& player) {
 
     return false;
 }
+
+// Helper function to check if an item is in the player's inventory
+bool isInInventory(const std::string& item) {
+    const auto& locationTable = getObjectLocationTable();
+    auto it = locationTable.find(item);
+    return it != locationTable.end() && it->second == "Inventory";
+}
