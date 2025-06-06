@@ -101,20 +101,26 @@ int choosePlayerClass(Player& player) {
         if (classInput == "1" || classInput == "knight") {
             player.setClass(PlayerClass::Knight);
             cout << "You have chosen: Knight\n";
+            cout << termcolor::green << "Welcome to Semita! We recommend using the 'help' command if you are new!" << termcolor::reset << endl;
+            break;
         } else if (classInput == "2" || classInput == "mage") {
             player.setClass(PlayerClass::Mage);
             cout << "You have chosen: Mage\n";
+            cout << termcolor::green << "Welcome to Semita! We recommend using the 'help' command if you are new!" << termcolor::reset << endl;
+            break;
         } else if (classInput == "3" || classInput == "assassin") {
             player.setClass(PlayerClass::Assassin);
             cout << "You have chosen: Assassin\n";
+            cout << termcolor::green << "Welcome to Semita! We recommend using the 'help' command if you are new!" << termcolor::reset << endl;
+            break;
         } else if (classInput == "4" || classInput == "archer") {
             player.setClass(PlayerClass::Archer);
             cout << "You have chosen: Archer\n";
+            cout << termcolor::green << "Welcome to Semita! We recommend using the 'help' command if you are new!" << termcolor::reset << endl;
+            break;
         } else {
             cout << termcolor::bright_red << "Invalid choice. Please try again.\n" << termcolor::reset;
         }
-        cout << termcolor::green << "Welcome to Semita! We recommend using the 'help' command if you are new!" << termcolor::reset << endl;
-        break;
     }
     return 0;
 }
